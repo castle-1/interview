@@ -1,0 +1,280 @@
+﻿1.반복문 3가지의 무한루프 만드는 방법은?
+	ㄱ. for(;;)
+	ㄴ. while(true)
+	ㄷ. do{
+	       }while(true)
+
+2.구구단 출력을 하시오.
+public static void main(String[] args) {
+
+		for (int i = 2; i <= 9; i++) {
+			for (int j = 1; j <= 9; j++) {
+				System.out.println(i + "x" + j + "=" + i * j);
+			}
+			System.out.println();
+		}
+
+	}
+
+3.짝수단만 찍으시오.
+public static void main(String[] args) {
+
+		for (int i = 2; i <= 9; i++) {
+			if (i % 2 != 0) { 
+				continue; //짝수단이 아는 단은 첫 번째 for문으로 돌아가 재검사, 짝수단일경우 아래 포문으로 이동
+			}
+			for (int j = 1; j <= 9; j++) {
+
+				System.out.println(i + "x" + j + "=" + i * j);
+
+			}
+
+			System.out.println();
+		}
+
+	}
+
+4.3의 배수인 단만 출력하시오.
+public static void main(String[] args) {
+
+		for (int i = 2; i <= 9; i++) {
+			if (i % 3 != 0) { //3의배수 단이 아니면 첫 번째 포문으로 돌아가 재검사, 3의배수 단이면 아래 for문으로 이동
+				continue;
+			}
+			for (int j = 1; j <= 9; j++) {
+
+				System.out.println(i + "x" + j + "=" + i * j);
+
+			}
+
+			System.out.println();
+		}
+
+	}
+
+5.아래의 Star를 찍으시오.
+public static void main(String[] args) {
+		
+		for(int i=1;i<=5;i++) {
+			
+			for(int j=1;j<=5;j++){
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+
+	}
+
+*****
+*****
+*****
+*****
+*****
+
+public static void main(String[] args) {
+		
+		for(int i=1;i<=5;i++) {
+			
+			for(int j=1;j<=i;j++){
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+
+	}	
+*
+**
+***
+****
+*****
+
+public static void main(String[] args) {
+
+		for (int i = 1; i <= 5; i++) {
+			for (int j = 1; j < i; j++) {
+				System.out.print(" ");
+			}
+			for (int j = 5; j >= i; j--) {
+				System.out.print("*");
+			}
+			System.out.print("\n");
+		}
+
+	}		
+*****
+****
+***
+**
+*
+
+public static void main(String[] args) {
+
+		for (int i = 1; i <= 5; i++) {
+
+			for (int j = 5; j > i; j--) {
+				System.out.print(" ");
+			}
+			for (int j = 1; j <= i; j++) {
+				System.out.print("*");
+			}
+			System.out.print("\n");
+		}
+
+	}
+    *
+   **
+  ***
+ ****
+*****		
+
+public static void main(String[] args) {
+
+		for (int i = 1; i <= 5; i++) {
+
+			for (int j = 5; j > i; j--) {
+				System.out.print(" ");
+			}
+			for (int j = 1; j <= (i*2)-1; j++) { // 별이 개행할때마다 1, 3, 5 .. (i*2)-1만큼 증가, i= 1,2,3,4,5
+				System.out.print("*");
+			}
+			System.out.print("\n");
+		}
+
+	}
+   *
+  ***
+ *****
+******* 
+
+6.함수는 어떻게 알아 볼수 있는가?
+public static void hiEveryone(int age) {
+		System.out.println("........");
+		System.out.println("..............");
+	}
+이러한 형태를 취한다면 함수라 칭함
+
+7.함수는 어떻게 만드는가?
+public static void hiEveryone(int age) {
+		System.out.println(".................");
+		System.out.println("............................");		
+	}
+void : 리턴값이 없다
+hiEveryone : 함수이름(프로그래머가 임의로 명명)
+hiEveryone(int age) : 함수에 매개변수로 int age 선언
+public static void hiEveryone(int age) {	 } : {}안에 출력할 내용과 기능을 작성
+
+8.함수는 어떻게 써먹는가?
+hiEveryone(12);
+
+메인 함수에서 함수명을 작성하고 ()안에 매개변수(값)를 전달. 매개변수(값)를 전달할시 함수에서 매개변수로 전달받을 데이터타입에 맞춰서
+값을 전달해야한다. ex) int a -> 정수값, double a -> 실수값 
+
+9.아래의 함수를 만드시오.
+함수이름: starPrint
+매개변수: type 1개
+기능: 매개변수에 3를 전달하면 3층 석탑, 5를 전달하면 5층석탑
+
+public class Ex22 {
+
+	public static void main(String[] args) {
+		
+		starPrint(3);// 매개변수가 의미하는 것은 몇행인가? ex) 3-> 3층짜리 탑, 5->5층짜리 탑
+
+	}
+	
+	public static void starPrint(int num) {
+			for(int i=1;i<=num;i++) { //매개변수가 행을 의미하기때문에 몇번 반복할지 첫 번째 for문에서 결정
+			
+			for(int j=1;j<=i;j++){
+				System.out.print("*");
+			}
+			System.out.println();
+		}
+		
+	}
+
+}
+
+예) 3전달시 3층석탑
+*
+**
+***
+5전달시 5층석탑
+*
+**
+***
+****
+*****
+
+10.아래의 함수를 만들고,해당함수를 호출하여 확인하시오. 
+함수이름: getGrade()
+매개변수: double type 1개
+리턴: 수 우 미 양 가 중 하나의 char 타입
+
+public class Ex23 {
+
+	public static void main(String[] args) {
+
+		System.out.println(getGrade(78.4));
+
+	}
+
+	public static char getGrade(double avg) { //리턴이 char 타입이기때문에 리턴타입을 char으로 설정
+		char grade; //리턴해줄 char타입
+		
+		if (avg >= 90) { //매개변수 즉 avg값이 90점이상이면 grade에 '수'를 대입
+			grade = '수';
+		} else if (avg >= 80) {
+			grade = '우';
+		} else if (avg >= 70) {
+			grade = '미';
+		} else if (avg >= 60) {
+			grade = '양';
+		} else {
+			grade = '가';
+		}
+		return grade; //만약 avg가 90이상이면 if 문에 의해서 grade에 '수'가 대입되었기 때문에 '수'를 리턴
+	}
+
+}
+
+
+11.매개변수 하나를 받아 원의 넓이를 리턴하는 함수를 작성하시오.
+public class Ex24 {// 원의 넓이-> pi*r*r
+
+	public static void main(String[] args) {
+
+		System.out.println(CircleArea(9));
+
+	}
+
+	public static int CircleArea(int num) {
+
+		final double pi = Math.PI; //pi의 값이 바뀌면 안되기때문에 final선언
+		return (int) (pi * num * num); //리턴타입이 int이며 pi는 실수이기 때문에 int형으로 캐스팅
+	}
+
+}
+
+12.매개변수 두개를 받아, 사각형의 넓이를 리턴하는 함수를 작성하시오.
+
+public class Ex25 {
+
+	public static void main(String[] args) {
+		System.out.println(SquareArea(6, 7));
+		System.out.println(SquareArea(11.2, 13.3));
+		
+
+	}
+
+	public static int SquareArea(int base, int height) {
+
+		return base*height;
+	}
+	public static double SquareArea(Double base, Double height) {
+
+		return base*height;
+	}
+	
+
+}
