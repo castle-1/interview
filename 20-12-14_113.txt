@@ -1,0 +1,290 @@
+﻿1.Object 클래스에 대하여 설명하시오.
+최상위 클래스이며
+상속하는게 없다면 object클래스를 상속, 상속을 했다면 object를 직접 상속하지 않게된다.
+
+2.아래와 같이 출력되는 이유를 하시오.
+
+class A {
+	
+	 @Override
+	 public String toString() {
+		
+		 return "이것은 A 클래스 입니다.";
+	 }	
+}
+
+public class TestMain {
+	public static void main(String[] args) {
+		A a  = new A();
+		System.out.println(a);
+		
+	   }		
+}
+===============
+이것은 A 클래스 입니다.
+
+object 클래스를 통해서 다형성이 적용되었기 때문. 
+따라서  toString도 object클래스의 함수이기때문에 toString를 오버라이딩 하여 출력할 수 있다.
+오버라이딩 하지 않는다면 a의 주소가 출력된다.
+
+3. class 이름 및 함수 에서 final 의 의미는?
+다른 클래스가 상속할 수 없다.
+
+4.연습문제 7-22 번을 푸시오.
+
+abstract class Shape {// 59
+	Point p;
+
+	Shape() {
+		this(new Point(0, 0));
+	}
+
+	Shape(Point p) {
+		this.p = p;
+	}
+
+	abstract double calcArea(); // 도형의 면적을 계산해 반환
+
+	Point getPosition() {
+		return p;
+	}
+
+	void setPosition(Point p) {
+		this.p = p;
+	}
+
+}
+
+class Circle extends Shape {
+	double r;
+
+	Circle(double r) {
+		this(new Point(0, 0), r);
+	}
+
+	Circle(Point p, double r) {  //p는 상속받음
+		super(p);
+		this.r = r;
+	}
+
+	@Override
+	double calcArea() {
+
+		return r * r * Math.PI;
+	}
+
+}
+
+class Rectangle extends Shape {
+	double width, height;
+
+	public Rectangle(double width, double height) {
+		this(new Point(0, 0), width, height);
+	}
+
+	public Rectangle(Point p, double width, double height) {
+		super(p);
+		this.height = height;
+		this.width = width;
+	}
+
+	@Override
+	double calcArea() {
+
+		return width * height;
+	}
+
+	public boolean isSquare() {
+		return width == height;
+
+	}
+}
+
+class Point {
+	int x;
+	int y;
+
+	public Point() {
+		this(0, 0); //생성자 호출, 파라미터가 int x, int y
+	}
+
+	Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+
+	public String toString() {
+		return "[" + x + "," + y + "]";
+
+	}
+}
+
+5.연습문제 7-23 번을 푸시오.
+
+package java_20_12_14;
+
+public class ShapeMain {
+
+	public static void main(String[] args) {
+		
+		Shape[] arr = {new Circle(5.0), new Rectangle(3, 4), new Circle(1)};
+		System.out.println("면적의 합: " + sumArea(arr));
+
+	}
+
+	public static double sumArea(Shape[] arr) {
+		double temp=0;
+		for(int i = 0; i<arr.length; i++) {
+			
+			temp +=arr[i].calcArea(); //arr[i] 만 하면 주소가 들어가기때문
+		}
+		return temp;
+	}
+}
+
+6. interface 와 class 의 차이는
+인터페이스는 메소드만 선언하고 구현부분인 바디가 없다. 
+하지만 클램스에서는 메소드를 선언하고 구현할 수 있는 바디가 존재
+
+7. 다음을 프로그램 하시오.[필수]
+interface Printable { // MS가 정의하고 제공한 인터페이스
+   public void print(String doc);
+}
+ SPrinterDriver 와 LPrinterDriver를 만드시오
+======================
+
+public static void main(String[] args) {
+   String myDoc = "This is a report about...";
+   
+   // 삼성 프린터로 출력
+   Printable prn = new SPrinterDriver();
+   prn.print(myDoc);
+   System.out.println();
+
+   // LG 프린터로 출력
+   prn = new LPrinterDriver();
+   prn.print(myDoc);
+}
+================================================
+출력: From Samsung printer
+This is a report about ...
+
+From LG printer
+This is a report about ...
+==================================
+
+package java_20_12_14;
+
+public interface Printable {
+	
+	public void print(String doc);
+		
+	}
+
+class SPrinterDriver implements Printable{
+	@Override
+	public void print(String doc) {
+		System.out.println("From Samsung printer");
+		System.out.println(doc);
+	}
+}
+
+class LPrinterDriver implements Printable{
+	@Override
+	public void print(String doc) {
+		System.out.println("From LG printer");
+		System.out.println(doc);
+	}
+}
+
+
+
+8.@Override 에 대하여 설명하시오.
+상위클래스 메소드를 오버라이딩 하겠다는 의미.
+오버라이딩을 한다면 명확히 표현하기 위해 사용
+
+9.interface 에 대하여 설명하시오.
+인터페이스명 앞에 interface를 선언
+
+ex) interface printable{...}
+상수와, 메소드를 선언할 수 있으며 구현부분 즉, 바디가 없다.
+함수의 선언만 하는 상태
+
+10.interface에 올수 있는 두가지는?
+상수와 메소드
+
+11.abstract 키워드에 대하여 설명하시오.
+사전적 의미로는 '추상'이라는 의미며 인터페이스 안에서 메소드 앞에 선언해야한다. 하지만 생략가능
+컴파일러가 자동적으로 생성
+또한 인터페이스는 public로 선언되며 이또한 생략가능하다.
+결국 abstract public를 컴파일러가 자동 생성 해준다.
+
+12. 아래의 출력 결과가 아래와 같이 나오도록 프로그래밍 하시오.
+Object obj = new Circle(10);
+System.out.println(obj);
+=================
+출력: 넓이는 100 입니다.
+
+
+public class ObjectMain {
+
+	public static void main(String[] args) {
+		Object obj = new Object(10);
+		System.out.println(obj);
+
+	}
+
+}
+public class Object {
+	
+	private int num;
+	
+	public Object(int num) {
+		this.num = num;
+	}
+	
+	public int run() {
+		
+		return num*num;
+		
+	}
+	
+	@Override
+	public String toString() {
+		
+		return "넓이는 " + run()+ " 입니다.";
+	}
+	
+	
+
+}
+
+13. 아래의 메모리를 그리시오.
+
+class MobilePhone {
+    protected String number;
+    
+    public MobilePhone(String num) {
+        number = num;
+    }    
+    public void answer() {
+        System.out.println("Hi~ from " + number);
+    }
+}
+
+class SmartPhone extends MobilePhone { 
+    private String androidVer;
+    
+    public SmartPhone(String num, String ver) {
+        super(num);
+        androidVer = ver;
+    }    
+    public void playApp() {
+        System.out.println("App is running in " + androidVer);
+    }
+}
+=======================================
+	MobilePhone phone = new SmartPhone("010-555-777", "Nougat");
+    	phone.answer();    	
+    	SmartPhone s = (SmartPhone)phone;    	
+    	s.playApp();
