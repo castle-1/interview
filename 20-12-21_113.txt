@@ -1,0 +1,243 @@
+﻿1.제네릭 클래스의 타입 인자 제한하는 방법과 효과는?
+인스턴스 생성시 타입 인자로  Number 또는 이를 상속한 클래스만 올 수 있다.
+즉, 스트링 클래스및 다른 클래스는 올 수 없다.
+
+2.아래와 같이 출력값이 나오도록 프로그래밍 하시오.
+class DDBoxDemo {
+    public static void main(String[] args) {
+        DBox<String, Integer> box1 = new DBox<>();
+        box1.set("Apple", 25);
+
+        DBox<String, Integer> box2 = new DBox<>();
+        box2.set("Orange", 33);
+        
+        DDBox<DBox<String, Integer>, DBox<String, Integer>> ddbox = new DDBox<>();
+        ddbox.set(box1, box2);
+
+        System.out.println(ddbox);
+    }
+}
+
+package java_20_21;
+
+public class DDBoxDemo {
+
+	public static void main(String[] args) {
+		DBox1<String, Integer> box1 = new DBox1<>(); // 기본자료형이 올 수 없다. 레퍼클래스 사용
+		box1.set("Apple", 25);
+
+		DBox1<String, Integer> box2 = new DBox1<>();
+		box2.set("Orange", 33);
+
+		DDBox<DBox1<String, Integer>, DBox1<String, Integer>> ddbox = new DDBox<>();
+		ddbox.set(box1, box2);
+
+		System.out.println(ddbox);
+
+	}
+
+}
+
+class DDBox<L, R> { //파라미터가 DBOX1 타입
+	private DBox1 l;
+	private DBox1 r;
+
+	public void set(DBox1 a, DBox1 b) {
+		this.l = a; //파라미터를 받아 DBox1 a에 리턴값 저장 즉, toString 
+		this.r = b;
+
+	}
+
+	@Override
+	public String toString() {
+
+		return l + "\n" + r; // l은 첫 번째 파라미터의 toString , r 은 두 번째 파라미터의 toString
+	}
+
+}
+
+class DBox1<L, R> {
+	private L Left;
+	private R right;
+
+	public void set(L o, R r) {
+		Left = o;
+		right = r;
+	}
+
+	@Override
+	public String toString() {
+
+		return Left + " & " + right;
+
+	}
+
+}
+
+==================
+Apple & 25
+Orange & 33
+
+3.아래와 같이 출력값이 나오도록 프로그래밍 하시오.
+
+    public static void main(String[] args) {
+        Box<Integer> box1 = new Box<>();
+        box1.set(99);
+
+        Box<Integer> box2 = new Box<>();
+        box2.set(55);
+
+        System.out.println(box1.get() + " & " + box2.get());
+        swapBox(box1, box2);
+        System.out.println(box1.get() + " & " + box2.get());
+    }
+==========
+99 & 55
+55 & 99
+package java_20_21;
+
+public class Swap {
+
+	public static void main(String[] args) {
+
+		Box5<Integer> box1 = new Box5<>();
+		box1.set(99);
+
+		Box5<Integer> box2 = new Box5<>();
+		box2.set(55);
+
+		System.out.println(box1.get() + " & " + box2.get());
+		swapBox(box1, box2);
+		System.out.println(box1.get() + " & " + box2.get());
+
+	}
+
+	public static void swapBox(Box5<Integer> box1, Box5<Integer> box2) { //자리바꾸기
+		Integer temp = box1.get(); // 초기값 temp
+		box1.set(box2.get()); // box1.set 에 box2.get 대입 즉 box1 에 box2값 대입
+		box2.set(temp); // box2 에 초기값 대입;
+
+	}
+
+}
+
+class Box5<T> {
+	private T num;
+
+	public void set(T t) {
+		this.num = t;
+	}
+
+	public T get() {
+		return num;
+
+	}
+
+}
+
+4.지네릭 메소드에 대하여 설명하시오.
+class a{
+	public static <T> Box<T> makeBox(T o){...}
+	// Box<T> 리턴타입
+	//<T> 제네릭 메소드 -> 클래스 전체에 제네릭을 적용하지 않고 메소드만 적용
+	//즉, 함수 안에서만 제네릭을 적용시키겠다는 명시적 의미
+}
+
+5.와일드 카드와 상한 제한, 하한 제한에 대하여 설명하시오.
+Box<? super Integer> -> integer(number 상속받음) 위에 즉, number
+Box<? extends integer> -> integer을 상속받은 클래스만 올 수 있다.
+
+6.아래가 에러가 나는 이유를 설명하시오.
+public static void inBox(Box<? super Toy> box, Toy n) {
+   box.set(n);   // 넣는 것! OK!
+   Toy myToy = box.get();   // 꺼내는 것! Error!
+}
+
+box는 toy의 상위클래스 즉 box는 부모
+하지만 Toy myToy = box.get(); 는 자식 = 부모 다형성에 위배
+
+
+7.아래와 같이 메소드 오버로딩이 되지 않는 이유는?
+// 다음 두 메소드는 오버로딩 인정 안됨.
+   public static void outBox(Box<? extends Toy> box) {...}
+   public static void outBox(Box<? extends Robot> box) {...}
+
+파라미터의 데이터 타입이 다르면 오버로딩이 불가능하다.
+하지만 두번째 파리미터로 오버로딩이 인정된다.
+
+8.아래의 결과가 나오도록 프로그래밍을 완성하시오.
+ public static void main(String[] args) {
+        Box<Integer> box1 = new Box<>();
+        box1.set(24);
+
+        Box<String> box2 = new Box<>();
+        box2.set("Poly");
+
+        if(compBox(box1, 25))
+            System.out.println("상자 안에 25 저장");
+
+        if(compBox(box2, "Moly"))
+            System.out.println("상자 안에 Moly 저장");
+        
+        System.out.println(box1.get());
+        System.out.println(box2.get());
+    }
+
+=======
+24
+Poly
+package java_20_21;
+
+public class Poly extends Box6 {
+
+	public static void main(String[] args) {
+
+		Box6<Integer> box1 = new Box6<>();
+		box1.set(24); // int 타입 즉, 정수타입으로 객체 생성
+
+		Box6<String> box2 = new Box6<>();
+		box2.set("Poly");// String 타입 즉, String 타입으로 객체 생성
+
+		if (compBox(box1, 25)) // box1의 값 24와 같으면 true 다르면 false
+			System.out.println("상자 안에 25 저장");
+
+		if (compBox(box2, "Moly")) // 비교
+			System.out.println("상자 안에 Moly 저장");
+
+		System.out.println(box1.get());
+		System.out.println(box2.get());
+
+	}
+
+	public static <T> boolean compBox(Box6<T> box, T t) { // 이 함수는 제네릭이라 명시적으로 선언
+		Box6<T> temp = new Box6<>(); //임시 저장소를 위한 temp
+		temp.set(t); // temp에 두 번째 파라미터 대입(t) ex) t= 25 temp.set(t) -> temp.get(); 25출력
+
+		if (box.get() == temp.get()) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+}
+
+class Box6<T> { //객체 생성시 파라미터로 int타입을 준다면 객체는 int, 파라미터를 String으로 준다면 String 타입 객체 생성
+
+	private T t;
+
+	public T get() {
+		return t;
+	}
+
+	public void set(T t) {
+		this.t = t;
+	}
+
+}
+9.콜렉션 프레임워크란?
+자료구조 및 알고리즘을 구현해 놓은 일종의 라이브러리
+골격을 구성하는 인터페이스 4가지
+Collection<E> -> Set<E>, List<E>, Queue<E>  (컬렉션 상속)
+	           Map<K,V> (상속 X)
