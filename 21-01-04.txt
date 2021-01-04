@@ -1,0 +1,282 @@
+1.box-sizing 속성들에 대하여 설명하시오.
+border -box;
+padding과 margin을 포함하지않고 지정한 px안에서 padding과 margin이 주어진다.
+
+content-box;
+디폴트
+padding 와 margin을 모두 더해서 크기가 정해진다.
+
+2.margin 과 padding의 차이는?
+padding : 내부간격
+margin : 외부간격
+
+3.내장객체에 대하여 설명하시오.
+new 키워드로 객체를 생성하지 않고 jsp파일 안에서 제공하는 객체를 사용
+
+4.구구단을 세로로 나타내도록 jsp 로 짜시오.
+  - out.println 을쓰지 말고 <%= expression을 사용 하시오.
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>gugudan</title>
+</head>
+<body>
+	<%
+		out.println("<table border=\"1\">");
+		for (int i = 1; i <= 9; i++) {
+			out.println("<tr>");
+			for (int j = 2; j <= 9; j++) {
+
+				out.println("<td>" + j + "*" + i + "=" + j * i + "</td>");
+
+			}
+			out.println("</tr>");
+			out.println("<br/>");
+			
+	}
+		out.println("</table>");
+	%>
+</body>
+</html>
+
+5.redirect forward 의 차이는?
+redirect : 클라이언트(유저)에게 다시 요청하여 url로 다시 접근 따라서 페이지가 바뀔때
+새로운 주소로 가게되며 이때 새로운 request, response 객체가 생성되며 최초 만들어진
+request와 response는 유효하지 않게 된다.
+
+forward : 바로 해당 url로 이동
+웹브라우저는 주소가 바뀐줄 모른다. 따라서 최초의 주소로 표시된다.
+최초에 생성된request. response객체는 
+다음 페이지에서도 유효하다. 즉, 객체를 공유하고 있다.
+
+1번.
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<style>
+		#nav {		
+			
+			width:800px;
+			margin :0 auto;	
+			border:1px solid #cccccc;
+			overflow: hidden;
+			
+		}
+		#nav div {
+			
+			width : 150px;
+			height : 100px;
+			line-height:100px;
+			float: left;
+			text-align : center;
+			font-size: 1.5em;
+			border-top: 1px solid red;
+			border-bottom: 1px solid red;
+			margin: 5px;
+		}
+		a {
+			text-decoration: none;
+				
+		}
+	</style>
+
+<body>
+	<div id="nav">
+        <div><a href="#">menu1</a></div>
+        <div><a href="#">menu2</a></div>
+        <div><a href="#">menu3</a></div>
+        <div><a href="#">menu4</a></div>
+        <div><a href="#">menu5</a></div>
+    </div>
+</body>
+</html>
+
+2번.
+<<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+
+    <style>
+       div {
+           width:800px;
+           margin:0 auto;
+           overflow:hidden;
+           border:1px solid #cccccc;
+           padding:10px;
+           box-sizing:border-box;
+       }
+
+       div p:nth-child(1) {
+           font-size:2.0em;
+           text-align : center;
+           height:100px;
+           line-height:100px;
+           text-decoration:underline;
+       }
+
+       div p:nth-child(2) {
+           font-size:1.2em;
+           text-align : left;
+       }
+
+       div p:nth-child(4) {
+           font-size:1.2em;
+           text-align : right;
+       }
+
+       div p:nth-child(6) {
+           height:50px;
+           line-height:50px;
+           font-size:1.5em;
+           text-align : center;
+       }
+
+       div p:nth-child(6) a {
+           text-decoration:none;
+       }
+
+    </style>
+
+</head>
+<body>
+    <div>
+        <p>HTML5, CSS3 Document</p>
+        <p>To. all member</p>
+        <p>html5, CSS3 study is very easy html5, CSS3 study is very easy html5, CSS3 study is very easy</p>
+        <p>From. SBA</p>
+        <hr />
+        <p><a href="http://sba.seoul.kr" target="_blank">서울산업진흥원</a></p>
+    </div>
+</body>
+</html>
+
+3번.
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+	<style>
+		#all{
+			width:750px;
+			border : 1px solid #cccccc;
+			overflow: hidden;
+			
+		}
+		#top{
+		   width:700px;
+		   margin: 0 auto;
+		   margin-top :20px;   
+           border:1px solid #cccccc;
+           padding : 20px;
+           color: green; 
+           font-size: 2em;
+		}
+		#middle{
+			width : 600px;
+			padding: 20px;
+		}
+		#base{
+			padding : 20px;
+		}
+		
+		
+	</style>
+<body>
+	<div id = "all">
+		<div id ="top">세계 3대 미항</div>
+		
+		<div id = "middle"><p><img src="sydney.jpg"></p></div>
+		
+		<div id = "base">
+			<p>시드니(Sydney), 호주<br><br>
+			리우데자네이루(Rio de Janeiro), 브라질<br><br>
+			나폴리(Naples), 이탈리아 </p>
+		</div>
+	
+	</div>
+
+</body>
+</html>
+
+4번.
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>formtag</title>
+</head>
+<body>
+	<form action="requestparam.jsp" method="post">
+		이름 : <input type="text" name="name" size="10"><br/>
+		아이디 : <input type="text" name="id" size="10"><br/>
+		비밀번호 : <input type="password" name="pw" size="10"><br/>
+		취미 : <input type="checkbox" name="hobby" value="read">독서
+		<input type="checkbox" name="hobby" value="cook">요리
+		<input type="checkbox" name="hobby" value="run">조깅
+		<input type="checkbox" name="hobby" value="swim">수영
+		<input type="checkbox" name="hobby" value="sleep">취침<br/>
+		전공 : <input type="radio" name="major" value="kor">국어
+		<input type="radio" name="major" value="eng" checked="checked">영어
+		<input type="radio" name="major" value="mat" >수학
+		<input type="radio" name="major" value="des" >디자인<br/>
+		<select name="protocol">
+			<option value="http">http</option>
+			<option value="ftp" selected="selected">ftp</option>
+			<option value="smtp">smtp</option>
+			<option value="pop">pop</option>
+		</select><br/>
+		<input type="submit" value="전송">
+		<input type="reset" value="초기화">
+	</form>
+</body>
+</html>
+
+<%@page import="java.util.Arrays"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<%!
+		String name, id, pw, major, protocol;
+		String[] hobbys;
+	%>
+	<%
+		request.setCharacterEncoding("utf-8");
+	
+		name = request.getParameter("name");
+		id = request.getParameter("id");
+		pw = request.getParameter("pw");
+		major = request.getParameter("major");
+		protocol = request.getParameter("protocol");
+		
+		hobbys = request.getParameterValues("hobby");
+	%>
+	
+	이름 : <%=name %><br/>
+	아이디 : <%=id %><br/> 
+	비밀번호 : <%=pw %><br/>
+	취미 : <%=Arrays.toString(hobbys) %><br/>
+	전공 : <%=major %><br/>
+	프로토콜 :  <%=protocol %><br/>
+	
+
+</body>
+</html>
