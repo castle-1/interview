@@ -1,0 +1,242 @@
+1.절대경로와 상대경로에 대하여 설명하시오.
+경로에는 상대경로와 절대 경로 2가지가 있다.
+절대경로에는 c:\, http://, / 있다.
+상대경로에는 절대경로가 아닌 전부를 지칭한다.
+
+상대경로의 기준은 자자 가신의 위치를 기준으로 하며 상대경로는 2가지의 경로를가진다.
+첫 번째는 물리적인 경로, 웹상에서 의 url을 가진다.
+
+webcontent 는 /로 매핑되어있고 ../ 의 의미는 자기가 속한 폴더의 상위폴더를 의미한다.
+
+절대 경로가 오면 ip 이후에 주소가 쓰여진다 다라서 컨택스트 패스가 생략된다.
+
+2.아래의 action 속성에 대하여 아래의 3가지 케이스에 대하여 테스트 하고 결론을 내려 보세요.
+
+0105/request_send.jsp
+자신의 위치가 기준이 되기 때문에 ip주소/0105/0105/request_send.jsp 가 호출되기 때문에 
+원하는곳으로 갈 수 없다.
+
+../0105/request_send.jsp
+자신의 폴더에서 하나위의 상위폴더로 이동하여 ../0105/request_send.jsp를 찾는다
+
+/0105/request_send.jsp
+ip주소 뒤에 /0105/request_send.jsp 가 호출되기 때문에 contextPath가 생략되어  404에러가 출력
+
+<form action="0105/request_send.jsp">
+당신의 나이는 : <input type="text" name="age" size="5">
+		<input type="submit" value="전송">
+	</form>
+
+3. css에서의 position 의 4가지 설명하시오.
+디폴트는 static position 생략가능 top,right,left,bottom 에 영향을 받지 않는다.
+
+상대위치 relative position 상대 위치(기준)에서  top,right,left,bottom를 지정
+동위 원소일때는 동위원소의 영향을 받고 부모 자식 간에는 자식은 부모의 영향을 받는다.
+
+고정위치 fixed position
+
+절대위치 absolute position
+static 속성을 가지고 있지 않은 부모를 기준으로 움직인다.
+만약 부모중 포지션이  relative, absolute, fixed인 태그가 없다면 가장 위의 태그(body)가 기준이 된다.
+
+4. float 속성에 대하여 설명하시오.
+사전적 의미는 공중으로 띄운다.
+
+#first{ float : left}
+#second{...} 하면 second는 first는 아래로 깔려서 보이지 않는다.
+따라서 second의 출발점은 first가 띄워진 지점부터 시작
+
+하지만 글자는 float된 디스플레이 옆(float 영역 바깥 ex) p태그, 텍스트 등)에 출력된다.
+
+5.쿠키에 대하여 설명하시오.
+웹브라우저에서 서버로 요청하면 로직을 수행후 데이터를 웹브라우저에 응답한다. 그후
+서버는 웹브라우저와의 관계를 끊는다. -> http프로토콜의 가장큰 특징
+연결이 끊겼을때 어떠한 정보를 지속적으로 유지하기위해 쿠키와 세션을 사용한다.
+쿠키는 4kb로 300개 까지 데이터 정보를 가질 수 있다.
+
+웹브라우저와 서버간에 응답과 요청이 오가면 연결이 끊어진다.
+연결을 끊는 이유는 서버하나에 많은 사람이 요청을 하기 때문에 계속 연결을 유지할 수 없다.
+
+setMaxAge(60) 60분동안 유지, 서버에
+response.addCookie(); <- 쿠키를 저장하는것이 목적, 클라이언트로
+-> 따라서 클라이언트가 웹브라우저 안에 쿠키영역에 가지고 있는다.
+->클라이언트가 다시 서버에 접솔할때 웹브라우저는 쿠키영역의 데이터까지 같이 전송
+
+클라이언트가 다시 서버에 접근할때 서버에서 쿠키를 받는 명령어는 request.getCookies
+
+웹브라우저에는 영역이 2개
+쿠키영역, 캐쉬
+
+6.액션 태그에 대하여 설명하시오.
+어떤동작을 지시하는 태그
+페이지 이동, include 등
+
+forward
+include와는 다름
+forward 하면 초기 주소에서 바뀌지 않는다.
+
+include
+
+param
+값을 전달 할 수 있으며 
+받을때는 request.getParameter로 받을 수 있다.
+
+문제 1.
+
+	<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+	<style>
+		#header{
+			width: 800px;
+			height : 100px;
+			background-color: green;			
+			overflow: hidden;
+		}
+		#mid{
+			width: 800px;
+			
+			
+		}
+		.left{ 
+			width : 200px;
+			height : 400px;
+			background-color: yellow;
+			float: left;
+		}
+		.center{ 
+			width : 400px;
+			height : 400px;
+			background-color: red;
+			float: left;
+		}
+		.right{ 
+			width : 200px;
+			height : 400px;
+			background-color: gray;
+			float: right;
+		}
+		
+		#footer{ 
+			width: 800px;
+			height : 100px;
+			background-color: blue;			
+			overflow: hidden; 
+		}
+	</style>
+<body>
+	<div id="header">헤더</div>
+	<div id="mid">
+		<div class="left">컨텐츠left</div>
+		<div class="center">컨텐츠center</div>
+		<div class="right">컨텐츠right</div>
+	</div>
+	<div id="footer">푸터</div>
+	
+
+</body>
+</html>
+
+문제 2	
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+	<style>
+		body {
+			width: 800px;
+			border: 1px solid red;
+			overflow: hidden;
+		}
+		
+		#header{
+			width : 780px;
+			border : 1px solid red; 
+			margin: 20px auto;
+			padding: 20px;
+			box-sizing: border-box; 
+		}
+		#navigation{
+			width : 780px;
+			height : 150px;
+			border : 1px solid red; 			
+			margin: 20px auto;
+			padding: 20px;
+			box-sizing: border-box;  
+		}
+		ul{
+			
+			list-style-type: non; 
+		}
+				
+		 li{
+		 	width : 130px;	 	
+		 	list-style : none; 
+			float: left;
+			border: 1px solid blue;
+			padding: 10px;
+			box-sizing: border-box; 
+		}
+		#contentAll{
+			width : 780px;
+			height : 500px;
+			border : 1px solid red; 			
+			margin: 5px auto;
+			padding: 5px;
+			box-sizing: border-box;  
+			overflow: hidden;			
+		}
+		#content{
+			width : 550px;
+			height : 380px;
+			border : 1px solid red; 			
+			margin: 20px auto;
+			padding: 10px;
+			box-sizing: border-box;
+			float: left;  
+		
+		}
+		#banner{
+		
+			width : 200px;
+			height : 380px;
+			border : 1px solid red; 			
+			margin: 20px auto;
+			padding: 10px;
+			box-sizing: border-box;  
+			float: right;
+		}
+		#footer{
+			width : 780px;
+			border : 1px solid red; 
+			margin: 20px auto;
+			padding: 20px;
+			box-sizing: border-box; 
+		}
+	
+	</style>
+<body>
+	<div id="header" align="center">HEADER</div>
+	<div id="navigation" align="center">NAVIGATION
+		<ul>
+			<li>menu1</li>
+			<li>menu2</li>
+			<li>menu3</li>
+			<li>menu4</li>
+			<li>menu5</li>
+		</ul>
+	</div>
+	<div id="contentAll">
+		<div id="content" align="center">CONTENT</div>
+		<div id="banner" align="center">BANNER</div>
+	</div>
+	<div id="footer" align="center">FOOTER</div>
+
+</body>
+</html>
