@@ -1,0 +1,371 @@
+1.아래를 SQL문으로 표기 하시오.
+-- 부서 번호(DEPTNO)가 20인 사원에 관한 정보만 출력
+ select * from emp where deptno=20;
+
+--이름(ENAME)이 FORD인 사람의 사번(empno), 이름(ename), 급여(SAL)를 출력하는 쿼리문
+select empno, ename, sal FROM emp where ename='FORD';
+
+--1982년 1월 1일 이후에 입사한 사원을 출력하는 쿼리문
+select * from emp where hiredate>='1982/01/01';
+
+--job 이 manage 이고 10번 부서인 사원
+select * from emp where job='manageer' and deptno=10;
+
+--job 이 manage 이거나 10번 부서인 사원
+select * from emp where job='manageer' or deptno=10;
+
+--10번 부서가 아닌 사원
+select * from emp where deptno !=10;
+select * from emp where deptno <>10;\
+
+--급여가 2000~3000 사이의 사원을 검색하는 쿼리문
+select * from emp where sal BETWEEN 2000 AND 3000;
+
+--급여가 2000 미만이거나 3000 초과인 사원을 검색하는 쿼리문
+select * from emp where sal not BETWEEN 2000 AND 3000;
+
+--1987년에 입사한 사원을 출력하는 쿼리문
+select * from emp where hiredate BETWEEN '1987/01/01' and '1987/12/31';
+
+--커미션(COMM)이 300 혹은 500 혹은 1400인 사원이 있는지 검색하는 쿼리문
+select * from emp where comm in(300,500,1400);
+
+--커미션(COMM)이 300 혹은 500 혹은 1400이 아닌 사원이 있는지 검색하는 쿼리문
+select * from emp where not comm in(300,500,1400);
+
+--이 F로 시작하는 사람을 찾는 쿼리문
+select * from emp where ename like 'F%'
+;
+--위치 상관 없이 이름 중에 A가 들어있는 사람을 찾는 쿼리문
+select * from emp where ename like '%A%';
+
+--이름이 N으로 끝나는 사람을 찾는 쿼리문
+select * from emp where ename like '%N';
+
+--이름의 두 번째 글자가 A인 사원을 찾는 쿼리문
+select * from emp where ename like '_A%';
+
+--이름의 세 번째 글자가 A인 사원을 찾는 쿼리문
+select * from emp where ename like '__A%';
+
+--이름에 A를 포함하지 않는 사람만 검색하는 쿼리문
+select * from emp where ename NOT like '%A%';
+
+--사원들의 급여를 오름차순으로 정렬하는 쿼리문
+select * from emp order by sal asc;
+
+--가장 최근에 입사한 사원부터 출력하는 쿼리문
+select * from emp order by hiredate desc;
+
+--사원들이 소속되어 있는 부서의 번호를 출력하는 쿼리문
+select ename,deptno from emp;
+
+--아래와 같이 출력하시오.
+SMITH is a CLERK
+ALLEN is a SALESMAN
+WARD is a SALESMAN
+JONES is a MANAGER
+MARTIN is a SALESMAN
+BLAKE is a MANAGER
+CLARK is a MANAGER
+KING is a PRESIDENT
+TURNER is a SALESMAN
+JAMES is a CLERK
+FORD is a ANALYST
+MILLER is a CLERK
+
+select ename ||' is a ' ||job from emp;
+
+문제 1.
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>가위바위보메인</title>
+</head>
+<body>
+		<h1>가위바위보 게임</h1>
+		<img src="RockScissorsPaper.jpg"> <br>
+	<form action="gameStart.jsp" method="post">
+		<select name="rsp">
+			<option value="가위">가위</option>
+			<option value="바위">바위</option>
+			<option value="보">보</option>
+		</select>
+		<input type="submit" value="제출">
+	</form>
+</body>
+</html>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<%
+		request.setCharacterEncoding("utf-8");
+		String rsp = request.getParameter("rsp");
+	%>
+	<jsp:useBean id="player" class="hw_21_01_07.RSP" scope="page" />
+	<jsp:setProperty property="player" name="player" value="<%=rsp %>" />
+	
+	<h1>com이낸것</h1>
+	<br>
+	<%
+		if(player.getCom() == 1){
+			out.println("<img src=\"rock.jpg\">" + "<br>");
+		}else if(player.getCom() == 2){
+			out.println("<img src=\"scissors.png\">" + "<br>");
+		}else if(player.getCom() ==3){
+			out.println("<img src=\"paper.png\">" + "<br>");
+		}
+	%>
+	<br>
+	<h1>player가낸것</h1>
+	<br>
+	<%
+		if(player.getPlayerTemp() == 1){
+			out.println("<img src=\"rock.jpg\">" + "<br>");
+		}else if(player.getPlayerTemp() == 2){
+			out.println("<img src=\"scissors.png\">" + "<br>");
+		}else if(player.getPlayerTemp() ==3){
+			out.println("<img src=\"paper.png\">" + "<br>");
+		}
+	%>
+	<br>
+	<%
+	if(player.getCom() == player.getPlayerTemp()){
+		out.println("비겼습니다.");
+	}else if(player.getPlayerTemp()==1 && player.getCom() ==2){
+		out.println("게임에서 이겼습니다.");
+	}else if(player.getPlayerTemp()==1 && player.getCom() ==3){
+		out.println("게임에서 졌습니다.");
+	}else if(player.getPlayerTemp()==2 && player.getCom() ==1){
+		out.println("게임에서 졌습니다.");
+	}else if(player.getPlayerTemp()==2 && player.getCom() ==3){
+		out.println("게임에서 이겼습니다.");
+	}else if(player.getPlayerTemp()==3 && player.getCom()==1){
+		out.println("게임에서 이겼습니다.");
+	}else if(player.getPlayerTemp()==3 && player.getCom() ==2){
+		out.println("게임에서 졌습니다.");
+	}
+	%>
+	<br>
+	<a href="game.html">되돌아가기</a>
+</body>
+</html>
+
+package hw_21_01_07;
+
+public class RSP {
+	
+	private String player; 
+	private int playerTemp;
+	private int com;
+	
+	public RSP() {
+		com = (int)((Math.random()*3)+1);
+	}
+
+
+	public int getPlayerTemp() {
+		return playerTemp;
+	}
+
+	public void setPlayerTemp(int playerTemp) {
+		this.playerTemp = playerTemp;
+	}
+	public String getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(String player) {
+		if(player.equals("바위")){
+			this.playerTemp = 1;
+		}else if(player.equals("가위")){
+			this.playerTemp=2;
+		}else if(player.equals("보")){
+			this.playerTemp=3;
+		}
+		
+	}
+
+	public int getCom() {
+		
+		return com;
+	}
+
+	public void setCom(int com) {
+		this.com =com;
+	}
+
+}
+
+
+
+
+문제 2.
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%!Connection connection;
+	Statement statement;
+	ResultSet resultSet;
+
+	String driver = "oracle.jdbc.driver.OracleDriver";
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String uid = "scott";
+	String upw = "tiger";
+	String query = "select * from emp";%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>emp</title>
+</head>
+<body>
+	<jsp:useBean id="Employee" class="hw_21_01_07.Employee" scope="page" />
+	
+	<%
+		try {
+		Class.forName(driver);
+		connection = DriverManager.getConnection(url, uid, upw);
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(query);
+	%>
+	<table border="1">
+		<tr>
+			<td>empno</td>
+			<td>name</td>
+			<td>job</td>
+			<td>mgr</td>
+			<td>hiredate</td>
+			<td>sal</td>
+			<td>comm</td>
+			<td>deptno</td>
+		</tr>
+		<%
+			while (resultSet.next()) {
+			String empno = resultSet.getNString("empno");
+			String name = resultSet.getString("ename");
+			String job = resultSet.getNString("job");
+			String mgr = resultSet.getNString("mgr");
+			String hiredate = resultSet.getNString("hiredate");
+			String sal = resultSet.getNString("sal");
+			String comm = resultSet.getNString("comm");
+			String deptno = resultSet.getNString("deptno");
+		%>
+		
+		<jsp:setProperty property="empno" name="Employee" value="<%=empno %>"/>
+		<jsp:setProperty property="name" name="Employee" value="<%=name %>"/>
+		<jsp:setProperty property="job" name="Employee" value="<%=job %>"/>
+		<jsp:setProperty property="mgr" name="Employee" value="<%=mgr %>"/>
+		<jsp:setProperty property="hiredate" name="Employee" value="<%=hiredate %>"/>
+		<jsp:setProperty property="sal" name="Employee" value="<%=sal %>"/>
+		<jsp:setProperty property="comm" name="Employee" value="<%=comm %>"/>
+		<jsp:setProperty property="deptno" name="Employee" value="<%=deptno %>"/>
+		
+		
+		<tr>
+			<td><jsp:getProperty property="empno" name="Employee"/></td>
+			<td><jsp:getProperty property="name" name="Employee"/></td>
+			<td><jsp:getProperty property="job" name="Employee"/></td>
+			<td><jsp:getProperty property="mgr" name="Employee"/></td>
+			<td><jsp:getProperty property="hiredate" name="Employee"/></td>
+			<td><jsp:getProperty property="sal" name="Employee"/></td>
+			<td><jsp:getProperty property="comm" name="Employee"/></td>
+			<td><jsp:getProperty property="deptno" name="Employee"/></td>
+		</tr>
+		<%
+			} //while
+		%>
+	</table>
+	<%
+		} catch (Exception e) {
+
+	} finally {
+	if (resultSet != null) {
+		resultSet.close();
+	}
+	if (statement != null) {
+		statement.close();
+	}
+	if (connection != null) {
+		connection.close();
+	}
+
+	}
+	%>
+</body>
+</html>
+
+package hw_21_01_07;
+
+public class Employee {
+	String empno;
+	String name;
+	String job;
+	String mgr;
+	String hiredate;
+	String sal;
+	String comm;
+	
+	public String getEmpno() {
+		return empno;
+	}
+	public void setEmpno(String empno) {
+		this.empno = empno;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public String getMgr() {
+		return mgr;
+	}
+	public void setMgr(String mgr) {
+		this.mgr = mgr;
+	}
+	public String getHiredate() {
+		return hiredate;
+	}
+	public void setHiredate(String hiredate) {
+		this.hiredate = hiredate;
+	}
+	public String getSal() {
+		return sal;
+	}
+	public void setSal(String sal) {
+		this.sal = sal;
+	}
+	public String getComm() {
+		return comm;
+	}
+	public void setComm(String comm) {
+		this.comm = comm;
+	}
+	public String getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(String deptno) {
+		this.deptno = deptno;
+	}
+	String deptno;
+
+}
+
+
