@@ -1,0 +1,191 @@
+1. html
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>inputInfrom</title>
+</head>
+<body>
+	<form action="success.html" method="post">
+	<h1 align="center"> 사원 정보 입력</h1>
+	<hr/>
+	사원번호 : <input type="text" name="empno"> <br>
+	사원이름 : <input type="text" name="ename"> <br>
+	사원직급 : <input type="text" name="job"> <br>
+	매니저 : <input type="text" name="mgr"> <br>
+	입사일 : <input type="text" name="hiredate"> <br>
+	급여 : <input type="text" name="sal"> <br>
+	커미션 :<input type="text" name="comm"> <br>
+	부서 : <input type="text" name="dept"> <br>
+	<input  type="submit" value="입력">
+	
+	</form>
+</body>
+</html>
+
+2.dao
+package emp.input.inform;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import edu.bit.ex.vo.EmpVo;
+
+public class EmpDAO {
+	
+	String url = "jdbc:oracle:thin:@localhost:1521:xe";
+	String uid = "scott";
+	String upw = "tiger";
+	
+	public EmpDAO() {
+		
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+	
+	public ArrayList<EmpVo> empSelect() {
+		ArrayList<EmpVo> dtos =new ArrayList<EmpVo>();
+		
+		Connection con = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		
+		 try {
+
+	         con = DriverManager.getConnection(url, uid, upw);
+	         stmt = con.createStatement();
+	         rs = stmt.executeQuery("insert into emp values(?,?,?,?,?,?,?,?)"); 
+
+	         while (rs.next()) {
+	            String name = rs.getString("ename");
+	            int empno = rs.getInt("empno");
+	            String job = rs.getString("job");
+
+	            EmpVo eDto = new EmpVo(name, empno, job);
+	            dtos.add(eDto); //어레이 리스트로 관리 
+	         }
+
+	      } catch (Exception e) {
+	         e.printStackTrace();
+
+	      } finally {
+
+	         try {
+	            
+	            if (rs != null) rs.close();
+	            if(stmt != null) stmt.close();
+	            if (con != null) con.close(); 
+
+	         } catch (Exception e2) {
+	            e2.printStackTrace();
+	         }
+
+	      }
+
+	      return dtos;
+
+		
+	}
+
+}
+
+3. dto
+package emp.input.inform;
+
+
+public class EmpVo {
+	private String ename;
+	private int empno;
+	private String job;
+	private String mgr;
+	private String hiredate;
+	private String sal;
+	private String comm;
+	private String deptno;
+	
+	public EmpVo(String ename, int empno, String job, String mgr, String hiredate, String sal, String comm,
+			String deptno) {
+		super();
+		this.ename = ename;
+		this.empno = empno;
+		this.job = job;
+		this.mgr = mgr;
+		this.hiredate = hiredate;
+		this.sal = sal;
+		this.comm = comm;
+		this.deptno = deptno;
+	}
+	public String getEname() {
+		return ename;
+	}
+	public void setEname(String ename) {
+		this.ename = ename;
+	}
+	public int getEmpno() {
+		return empno;
+	}
+	public void setEmpno(int empno) {
+		this.empno = empno;
+	}
+	public String getJob() {
+		return job;
+	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public String getMgr() {
+		return mgr;
+	}
+	public void setMgr(String mgr) {
+		this.mgr = mgr;
+	}
+	public String getHiredate() {
+		return hiredate;
+	}
+	public void setHiredate(String hiredate) {
+		this.hiredate = hiredate;
+	}
+	public String getSal() {
+		return sal;
+	}
+	public void setSal(String sal) {
+		this.sal = sal;
+	}
+	public String getComm() {
+		return comm;
+	}
+	public void setComm(String comm) {
+		this.comm = comm;
+	}
+	public String getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(String deptno) {
+		this.deptno = deptno;
+	}
+	
+
+}
+
+4. 결과출력
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>정보입력이 정상적으로 처리 되었습니다.</h1>
+<a href="">리스트</a>
+
+</body>
+</html>
