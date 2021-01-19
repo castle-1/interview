@@ -6,3 +6,50 @@
  - 객체
  - undefined
  - String
+
+ var
+자바스크립트의 데이터타입
+어떤 타입이든 받아낸다. ex)String, int 등등...
+var에서 알아서 타입을 변환한다.
+
+ex)
+		var str = "가나다라마바사";
+		console.log("str :" + str);
+		
+		var number = 12345;
+		console.log("number :" + number);
+		
+		var boo = true;
+		console.log("boo :" + boo);
+
+		var varFun = function fun() {}; //함수, 리턴타입이 function 인이유
+		console.log("varFun :" + varFun);
+		
+		var varObj = {}; //객체
+		console.log("varObj :" + varObj);
+		
+		var varund = undefined ; //아무것도 없다. null과 비슷
+		console.log("varund :" + varund);
+
+2. typeof(변수명); -> 자료형을 검사하는 내장함수
+-변수명의 데이터 타입을 알려준다.
+-자바스크립트는 자료형에 대한 제약이 약하다.
+-생산성이 좋다.
+
+ex)
+		var varType = "123";
+		console.log("varType : " + typeof(varType));
+		console.log("varType " + (varType + 1000));
+		//1231000 출력		
+
+		varType = Number(varType);
+		console.log("varType : " + typeof(varType));
+		console.log("varType " + (varType + 1000));
+		//1123출력
+
+
+3. 배열 생성
+var varArr1 = new Array();
+var varArr2 = new Array(3);
+var varArr3 = new Array(123,"123",true,function fun() {}, {}. undefined); //다른 데이터 타입가능
+var varArr4 = [123,"123",true,function fun() {}, {}. undefined]; //new 사용안할때 선언방법
