@@ -1,0 +1,150 @@
+1.클로져란 무엇인가?
+클로저란 내부함수가 외부함수의 지역변수에 접근할 수 있고,
+외부함수는 외부함수의 지역변수를 사용하는 내부함수가 소멸될 때까지 소멸되지 않는
+특성을 의미한다.
+
+ - 함수 내에서 함수를 정의
+ - 대부분 정의한 함수를 리턴만 하고 사용은 함수 밖에서 한다.
+
+2.js를 이용하여, 구구단중 홀수단만 나오게 하시오.
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		document.write("<table border=1>");
+		
+		document.write("<tr>"); //tr1
+			
+				for(var k=2;k<=9;k++){
+					if(k%2 !=0){
+						document.write("<td>");
+						document.write(k+"단");
+						document.write("</td>");
+					}
+				}
+				
+			
+		document.write("</tr>");//end tr1
+		
+		
+		document.write("<tr>"); //tr2
+			for (var i = 1; i <= 9; i++) {			
+				for (var j = 2; j <= 9; j++) {					
+					if(j%2 != 0){
+						document.write("<td>");
+							document.write(j + "x" + i + "=" + j * i);
+							document.write("</td>");
+					}
+					
+				}	
+				document.write("</tr>"); //end tr2
+			}
+				
+		
+		
+		document.write("</table>");
+	</script>
+</body>
+</html>
+
+3.부서별로 sal의 최소 값을 구하는데
+, 30번 부서의 sal 최소값 보다 큰것을 구하시오.
+
+select deptno, MIN(sal) 
+from emp GROUP BY deptno
+HAVING min(sal)>(select min(sal) from emp where deptno=30);
+
+ 
+
+4.삼각형및 사각형의 넓이를 구하는 프로그래밍을 IoC 컨테이너를 이용하여 프로그래밍 하시오.
+
+- main
+package com.java.area;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class main {
+
+	public static void main(String[] args) {
+		String configLocation = "classpath:applicationCTX.xml";
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext(configLocation);
+		CaculatorArea area = ctx.getBean("caculatorArea",CaculatorArea.class );
+		area.pRectangle();
+		area.pTriangle();
+		ctx.close();
+				
+
+	}
+
+}
+ - caculator
+package com.java.area;
+
+public class CaculatorArea {
+
+	private double heigth;
+	private double width;
+	
+	public void pRectangle() {
+		
+		System.out.println("사각형의 넓이" +retangleArea(width, heigth));
+	}
+	public void pTriangle() {
+		
+		System.out.println("삼각형의 넓이" +triangleArea(width, heigth));
+	}
+
+	public double retangleArea(double width, double height) {
+
+		return width * height;
+
+	}
+
+	public double triangleArea(double width, double height) {
+
+		return (width * height) * 0.5;
+
+	}
+
+	public double getHeigth() {
+		return heigth;
+	}
+
+	public void setHeigth(double heigth) {
+		this.heigth = heigth;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+}
+
+ - xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id = "caculatorArea" class = "com.java.area.CaculatorArea">
+		<property name = "heigth">
+			<value>10</value>
+		</property>
+		<property name = "width">
+			<value>15</value>
+		</property>
+	</bean>
+	
+	
+	
+	</beans>
