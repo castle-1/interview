@@ -1,1 +1,364 @@
-1.ì†Œì…œë¡œê·¸ì¸ ëª¨ë®¬
+1.¾Æ·¡¸¦ ¼³¸íÇÏ½Ã¿À.
+-DI
+   ->°´Ã¼ »ý¼º ¹æ¹ý 3°¡Áö new,»ý¼ºÀÚ,setter
+   -> di´Â »ý¼ºÀÚ¿Í ,setter·Î °´Ã¼ »ý¼º ÇÏ¿© ¿ÜºÎ¿¡¼­ ÁÖÀÔ¹Þ´Â´Ù.
+-IoC
+   -> di ¿¡¼­ À¯·Ê
+   -> new·Î ´ÙÀÌ·ºÆ® »ý¼ºÇÑ´Ù¸é ¿ÏÁ¦Ç°ÀÇ °³³äÀÌ±â ¶§¹®¿¡ ´Ù¸¥ °´Ã¼¸¦ »ý¼º½Ã ´Ù½ÃnewÇØ¾ßÇÑ´Ù.
+	Áï, »ý»ê¼ºÀÌ ¶³¾îÁø´Ù.
+   -> ÇÏÁö¸¸ di¸¦ »ç¿ëÇÑ´Ù¸é  ÄÚµå°¡ ¸ðµâÈ­ µÇÀÖ±â ¶§¹®¿¡ ºÎÇ°À» ¹Ù²Û´Ù´Â °³³äÀÌ±â ¶§¹®¿¡
+	¾ðÁ¦µçÁö ÄÚµå¸¦ ¹Ù²Ü ¼ö ÀÖ´Ù.
+
+-IoC ÄÁÅ×ÀÌ³Ê
+   -> °´Ã¼¸¦ ´ã¾Æ³»´Â ÄÁÅ×ÀÌ³Ê
+
+2. JS·Î ½Ã°£ÀÌ ÃÊ´ÜÀ§·Î °»½ÅµÇ´Â ÆäÀÌÁö¸¦ ¸¸µå½Ã¿À.
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<script>
+		setInterval(function() {
+			var today = new Date();
+			var hours = today.getHours();
+			var min = today.getMinutes();
+			var sec = today.getSeconds();
+			document.write(hours + " : " + min + " : " + sec + "<br/>");
+		}, 1000);
+	</script>
+
+</body>
+</html>
+
+3.js ¿¡¼­ÀÇ °´Ã¼»ý¼º ¹æ¹ýÀº?
+ - Á÷Á¢»ý¼º
+ - ÇÔ¼ö¸¦ ÀÌ¿ëÇÑ »ý¼º
+ - »ý¼ºÀÚ¸¦ ÀÌ¿ëÇÑ »ý¼º
+
+4.¾Æ·¡¸¦ ÀÚ¹Ù ½ºÅ©¸³Æ®·Î ÀÛ¼ºÇÏ½Ã¿À.
+-º¯¼ö radius
+-get set ÇÔ¼ö ÀÛ¼º
+-ÇÁ·ÒÇÁÆ®·Î ¼ýÀÚ ÀÔ·Â°ª ¹ÞÀ½
+-set ÇÔ¼ö¸¦ radius °ª ¼¼ÆÃ
+-°´Ã¼ »ý¼ºÈÄ getArea() ÇÔ¼ö È£ÃâÇÏ¸é ¿ø³ÐÀÌ Ãâ·Â
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		function radiusCaculator() {
+			var radius = 0;
+			
+			this.rcaculator = function() {
+				return (this.radius * this.radius * 3.14).toFixed(2);
+			};
+			
+			this.getRadius = function() {
+				return this.radius;
+			};
+			
+			this.setRadius = function(radius) {
+				if(!isNaN(radius)){
+					this.radius = radius;
+				}else {
+					console.log("radius is NaN(Not a number)!");
+					
+				};
+			};						
+		}
+	var rCaculator = new radiusCaculator();
+	var inputradius = prompt("¹ÝÁö¸§À» ÀÔ·Â", "¹ÝÁö¸§");
+	alert(inputradius);
+	
+	rCaculator.setRadius(inputradius);
+	document.write("³ÐÀÌ : " + rCaculator.rcaculator());
+	
+	</script>
+
+</body>
+</html>
+
+5.À§¿Í °°Àº ¹æ½ÄÀ¸·Î °¡À§¹ÙÀ§º¸ °ÔÀÓÀ» Â¥½Ã¿À.
+
+-DOM °´Ã¼¸¦ ¹è¿ì¸é ÀÌ¹ÌÁöµµ ¹Ù²ã º¸µµ·Ï ÇÕ½Ã´Ù.
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function rsp() {
+			var player = "";
+			var rancom;
+			var com;
+			
+			this.setPlayer= function(player) {
+				this.player = player;
+			};
+			
+			
+			
+			this.rspgame = function() {
+				this.rancom = Math.floor((Math.random()*3)+1);
+				this.com = (rancom ==1) ? "¹ÙÀ§" : (rancom ==2) ?  "°¡À§" : "º¸";
+				if(this.player == "¹ÙÀ§"){
+					if(this.com == this.player){
+						document.write("ºñ°å½À´Ï´Ù." + "<br>");
+					}else if(this.com == "°¡À§"){
+						document.write("ÀÌ°å½À´Ï´Ù." + "<br>");
+					}else {
+						document.write("Á³½À´Ï´Ù." + "<br>");
+					}								
+				}else if(this.player =="°¡À§"){
+					if(this.com ==this.player){
+						document.write("ºñ°å½À´Ï´Ù." + "<br>");
+					}else if(this.com == "¹ÙÀ§"){
+						document.write("Á³½À´Ï´Ù." + "<br>");
+					}else {
+						document.write("ÀÌ°å½À´Ï´Ù." + "<br>");
+					}
+				}else{
+						if(this.com == this.player){
+							document.write("ºñ°å½À´Ï´Ù." + "<br>");
+						}else if(this.com == "¹ÙÀ§"){
+							document.write("ÀÌ°å½À´Ï´Ù." + "<br>");
+						}else {
+							document.write("Á³½À´Ï´Ù." + "<br>");
+						}
+					}
+					
+					document.write("player : " + this.player + "<br>"
+							+"com : " + this.com);
+				};
+			}
+		
+		
+		var game = new rsp();
+		game.setPlayer(prompt("°¡À§,¹ÙÀ§,º¸ °ÔÀÓ","°¡À§,¹ÙÀ§,º¸¸¦ ³»½Ã¿À"));
+		game.rspgame();
+	
+	
+	</script>
+</body>
+</html>
+
+6.annotation ¹æ½ÄÀ¸·Î ÇÏ¿© °´Ã¼ »ý¼ºÈÄ »ç°¢Çü°ú »ï°¢Çü ³ÐÀÌ¸¦ ±¸ÇÏ½Ã¿À.
+-main-
+package edu.bit.area;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class ClassMain {
+
+	public static void main(String[] args) {
+		
+		AnnotationConfigApplicationContext ctx = 
+				new AnnotationConfigApplicationContext(ApplicationConfig.class);
+		
+		AreaCaculator triangle = ctx.getBean("triangle",AreaCaculator.class);
+		System.out.println("³ÐÀÌ" + triangle.TriangleArea());
+		
+		AreaCaculator ractangle = ctx.getBean("ractangle",AreaCaculator.class);
+		System.out.println("³ÐÀÌ" + ractangle.RactangleArea());
+	}
+
+}
+
+-class-
+package edu.bit.area;
+
+public class AreaCaculator {
+	
+	private double width, height;
+	
+	
+
+	public AreaCaculator(double width, double height) {
+		super();
+		this.width = width;
+		this.height = height;
+	}
+	
+	public double RactangleArea() {
+		return width * height;
+	}
+	
+	public double TriangleArea() {
+		return (width * height)* 0.5;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+}
+-ApplicationConfig-
+package edu.bit.area;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class ApplicationConfig {
+	
+	@Bean
+	public AreaCaculator triangle() {
+		AreaCaculator areaCaculator = new AreaCaculator(10, 15);
+		areaCaculator.TriangleArea();
+		return areaCaculator;
+	}
+	
+	@Bean
+	public AreaCaculator ractangle() {
+		AreaCaculator areaCaculator = new AreaCaculator(10, 15);
+		areaCaculator.RactangleArea();
+		return areaCaculator;
+	}
+	
+}
+
+
+
+
+7.±ÝÀÏ ¹è¿î PencilÀÇ ¿¹Ã³·³ ¾Æ·¡¸¦ ÀÎÅÍ ÆäÀÌ½º¸¦ ±¸ÇöÇÏ¿©, 
+¿ø, »ï°¢Çü, »ç°¢ÇüÀÇ ³ÐÀÌ¸¦ ¼³Á¤ÆÄÀÏ ¿¡¼­ ¹Ù²Ù¸é °¢°¢ÀÇ ³ÐÀÌ°¡  ±¸ÇÏ¿© Áöµµ·Ï ÇÏ½Ã¿À.
+
+interface IShape{
+	double getArea();
+}
+-main-
+package edu.bit.areaInterface;
+
+import org.springframework.context.support.AbstractApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class ClassMain {
+
+	public static void main(String[] args) {
+		
+		AbstractApplicationContext ctx = new GenericXmlApplicationContext("classpath:applicationCTX.xml");
+		Area area = ctx.getBean("area",Area.class);
+		area.areaCaculator();
+		ctx.close();		
+	}
+}
+-interface-
+package edu.bit.areaInterface;
+
+public interface Area {
+	abstract void areaCaculator();
+
+}
+- class 1 -
+package edu.bit.areaInterface;
+
+public class Rectangle implements Area{
+
+	@Override
+	public void areaCaculator() {
+		AreaCaculator ractangle = new AreaCaculator(10, 3);
+		
+		System.out.println("»ç°¢Çü ³ÐÀÌ" + ractangle.RactangleArea());
+		
+	}
+
+}
+- class 2 -
+package edu.bit.areaInterface;
+
+
+public class Triangle implements Area{
+
+	@Override
+	public void areaCaculator() {
+		AreaCaculator triangle = new AreaCaculator(5, 6);
+		System.out.println("»ï°¢Çü³ÐÀÌ" + triangle.TriangleArea());
+		
+	}
+
+}
+
+- class 3 - 
+package edu.bit.areaInterface;
+
+public class AreaCaculator {
+	
+	private double width, height;
+	
+	
+
+	public AreaCaculator(double width, double height) {
+		super();
+		this.width = width;
+		this.height = height;
+	}
+	
+	public double RactangleArea() {
+		return width * height;
+	}
+	
+	public double TriangleArea() {
+		return (width * height)* 0.5;
+	}
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	public double getHeight() {
+		return height;
+	}
+
+	public void setHeight(double height) {
+		this.height = height;
+	}
+
+}
+- applicationCTX.xml -
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id = "area" class = "edu.bit.areaInterface.Triangle"></bean>
+
+</beans>
+
+
+8.½ºÇÁ¸µ ¹Ì¸® °øºÎ ±¸Çö ÇØ¾ßµÉ ³»¿ë-¹Ì¸®ÁØºñÇØ ³õÀ¾½Ã´Ù.(ÇÑ¸¶µð·Î ¿Ü¿ö Á¦³§½Ã´Ù).
+½ºÇÁ¸µ °Ô½ÃÆÇ(¿À¶óÅ¬ + ¸¶ÀÌ¹ÙÆ¼½º),½ºÇÁ¸µ ½ÃÅ¥¸®Æ¼, ¼Ò¼È·Î±×ÀÎ(OAuth2)-Ä«Ä«¿À,³×ÀÌ¹ö ¸ÕÀú, °áÀç±¸Çö(¾ÆÀÓÆ÷Æ®)
+
