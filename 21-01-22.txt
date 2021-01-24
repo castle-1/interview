@@ -1,0 +1,418 @@
+1.command 객체에 대하여 설명하시오.
+파라미터로 객체를 선언하고 객체의 getter, setter을 통해 값을 set하고 출력할때 get을 이용하여 출력한다.
+디폴트 생성자는 반드시 필요.
+
+2.ModelAndView 객체에 대하여 설명하시오.
+매핑된 메소드에서 views로 값을 전달할때 사용하는 객체
+
+3.아래의 골뱅이에 대하여 설명하시오.
+@Controller
+클래스를 컨트롤러로 만들어주는 어노테이션
+
+@RequestParam
+public String checkId(@RequestParam("id") String id, @RequestParam("pwd") String pwd, Model model)
+@RequestParam("id") 의 id를  String id 에 저장
+
+@RequestMapping
+value를 통해 원하는 곳으로 맵핑
+
+4.아래를 프로그래밍 스프링으로 프로그래밍 하시오.
+-국영수 입력 페이지
+-국영수점수를 서버에서 받아서,총점과 평균을 리턴
+-해당 총점과 평균의 점수의 색깔은 각각 빨간색과 파란색으로 만들것(JS로).
+
+-컨트롤러-
+package edu.bit.ex;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import Caculator.Grade;
+
+@Controller
+public class gradeController {
+
+	@RequestMapping("/grade/gradeform")
+	public String grade() {
+		return "grade/gradeform";
+	}
+	
+	@RequestMapping("/grade/gradePrint")
+	public String gradePrint(Grade grade) {
+		return "grade/gradePrint";
+	}
+
+}
+
+-클래스-
+package Caculator;
+
+public class Grade {
+	
+	private int kor,eng,math;
+	
+	
+
+	public Grade() {
+		super();
+	}
+
+	public Grade(int kor, int eng, int math) {
+		super();
+		this.kor = kor;
+		this.eng = eng;
+		this.math = math;
+	}
+
+	public int getKor() {
+		return kor;
+	}
+	
+	public int sum() {
+		return kor + eng + math;
+	}
+	
+	public double avg() {
+		return sum() * 0.3;
+	}
+
+	public void setKor(int kor) {
+		this.kor = kor;
+	}
+
+	public int getEng() {
+		return eng;
+	}
+
+	public void setEng(int eng) {
+		this.eng = eng;
+	}
+
+	public int getMath() {
+		return math;
+	}
+
+	public void setMath(int math) {
+		this.math = math;
+	}
+
+}
+
+-jsp1-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<form action="gradePrint">
+		국어 : <input type="text" name = kor><br>
+		수학 : <input type="text" name = math><br>
+		영어 : <input type="text" name = eng><br>
+		<input type="submit" value="입력">
+	</form>
+
+</body>
+</html>
+
+-jsp2-
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<script type="text/javascript">
+		window.onload= function () {
+			var x = document.getElementById("blue");
+			var y = document.getElementById("red");
+			x.style.color = "blue";
+			y.style.color = "red";
+			
+		}
+	
+	</script>
+
+
+</head>
+<body>
+
+
+	총점 : <p id ="red"> ${ grade.sum()} </p> 
+	평균 : <p id ="blue"> ${ grade.avg()} </p>
+
+
+</body>
+</html>
+
+5.제일위에 입력버튼 하나를 만든다.
+-버튼을 누르면 200*200 파란색 박스가 하나씩 계속해서 생기는 프로그램을 만드시오.
+  
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<title>JavaScript</title>
+
+<script type="text/javascript">
+ 
+	function addbox(){
+		 document.getElementById("abox").innerHTML +=
+			 "<div style='background-color: blue; height: 200px; width: 200px'></div><br>";
+		
+	}
+</script>
+	
+<body>
+
+		<div id="abox">
+			<input type="button" value="추가" onclick="addbox()"> 
+			<br>
+		</div>
+	
+</body>
+</html>
+
+ * naver login test *
+
+-controller -
+package com.test.login;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
+public class testController {
+
+	@RequestMapping("/testlogin")
+	public String isComplete(HttpSession session) {
+		
+		return "testlogin";
+	}
+	
+	@RequestMapping("/testcallback")
+	public String naverLogin(HttpServletRequest request)throws Exception {
+		return "testcallback";
+	}
+	
+	@RequestMapping("/personalInfo")
+	public void personalInfo(HttpServletRequest request)throws Exception {
+		String token = "AAAAN_tNjvPJfsrJaHwevx-n2JxK06OTjw25tVLVmpKzoPLp6Lik1D198YZFxQRnRKCqcK5dKDRO_7pxLmdVsgQ-gA0";
+		String header = "Bearer" + token;
+		try {
+			String apiURL = "https://openapi.naver.com/v1/nid/me";
+			URL url = new URL(apiURL);
+			HttpsURLConnection con = (HttpsURLConnection)url.openConnection();
+			con.setRequestMethod("GET");
+			con.setRequestProperty("Authorization", header);
+			int responseCode = con.getResponseCode();
+			BufferedReader br;
+			if(responseCode ==200) {
+				br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+			}else {
+				br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+			}
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+			while ((inputLine = br.readLine())!=null) {
+				response.append(inputLine);
+			}
+			br.close();
+			System.out.println(response.toString());
+		} catch (Exception e) {
+			System.out.println(e);
+			// TODO: handle exception
+		}
+		
+		
+	}
+	
+}
+
+- ApiExamMemberProfile -
+package profile;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ApiExamMemberProfile {
+	
+
+	   public static void main(String[] args) {
+	        String token = "AAAAN_tNjvPJfsrJaHwevx-n2JxK06OTjw25tVLVmpKzoPLp6Lik1D198YZFxQRnRKCqcK5dKDRO_7pxLmdVsgQ-gA0"; // 네이버 로그인 접근 토큰;
+	        String header = "Bearer " + token; // Bearer 다음에 공백 추가
+
+	        String apiURL = "https://openapi.naver.com/v1/nid/me";
+
+	        Map<String, String> requestHeaders = new HashMap<String, String>();
+	        requestHeaders.put("Authorization", header);
+	        String responseBody = get(apiURL,requestHeaders);
+
+	        System.out.println(responseBody);
+
+}
+	   
+	   private static String get(String apiUrl, Map<String, String> requestHeaders){
+	        HttpURLConnection con = connect(apiUrl);
+	        try {
+	            con.setRequestMethod("GET");
+	            for(Map.Entry<String, String> header :requestHeaders.entrySet()) {
+	                con.setRequestProperty(header.getKey(), header.getValue());
+	            }
+
+	            int responseCode = con.getResponseCode();
+	            if (responseCode == HttpURLConnection.HTTP_OK) { // 정상 호출
+	                return readBody(con.getInputStream());
+	            } else { // 에러 발생
+	                return readBody(con.getErrorStream());
+	            }
+	        } catch (IOException e) {
+	            throw new RuntimeException("API 요청과 응답 실패", e);
+	        } finally {
+	            con.disconnect();
+	        }
+	    }
+
+	    private static HttpURLConnection connect(String apiUrl){
+	        try {
+	            URL url = new URL(apiUrl);
+	            return (HttpURLConnection)url.openConnection();
+	        } catch (MalformedURLException e) {
+	            throw new RuntimeException("API URL이 잘못되었습니다. : " + apiUrl, e);
+	        } catch (IOException e) {
+	            throw new RuntimeException("연결이 실패했습니다. : " + apiUrl, e);
+	        }
+	    }
+
+	    private static String readBody(InputStream body){
+	        InputStreamReader streamReader = new InputStreamReader(body);
+
+	        try (BufferedReader lineReader = new BufferedReader(streamReader)) {
+	            StringBuilder responseBody = new StringBuilder();
+
+	            String line;
+	            while ((line = lineReader.readLine()) != null) {
+	                responseBody.append(line);
+	            }
+
+	            return responseBody.toString();
+	        } catch (IOException e) {
+	            throw new RuntimeException("API 응답을 읽는데 실패했습니다.", e);
+	        }
+	    }
+	}
+
+- login.jsp - 
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <title>네이버로그인</title>
+  </head>
+  <body>
+  <%
+    String clientId = "lfft9KQsS4ev7xPmhFCG";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://localhost:8282/login/testcallback", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+ %>
+  <a href="<%=apiURL%>"><img height="50" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+  </body>
+</html>
+
+- callback -
+
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URL" %>
+<%@ page import="java.net.HttpURLConnection" %>
+<%@ page import="java.io.BufferedReader" %>
+<%@ page import="java.io.InputStreamReader" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<html>
+  <head>
+    <title>네이버로그인</title>
+  </head>
+  <body>
+  <%
+    String clientId = "lfft9KQsS4ev7xPmhFCG";//애플리케이션 클라이언트 아이디값";
+    String clientSecret = "ixWo5uUl85";//애플리케이션 클라이언트 시크릿값";
+    String code = request.getParameter("code");
+    String state = request.getParameter("state");
+    String redirectURI = URLEncoder.encode("http://localhost:8282/login/testcallback", "UTF-8");
+    String apiURL;
+    apiURL = "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&";
+    apiURL += "client_id=" + clientId;
+    apiURL += "&client_secret=" + clientSecret;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&code=" + code;
+    apiURL += "&state=" + state;
+    String access_token = "";
+    String refresh_token = "";
+    System.out.println("apiURL="+apiURL);
+    try {
+      URL url = new URL(apiURL);
+      HttpURLConnection con = (HttpURLConnection)url.openConnection();
+      con.setRequestMethod("GET");
+      int responseCode = con.getResponseCode();
+      BufferedReader br;
+      System.out.print("responseCode="+responseCode);
+      if(responseCode==200) { // 정상 호출
+        br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+      } else {  // 에러 발생
+        br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
+      }
+      String inputLine;
+      StringBuffer res = new StringBuffer();
+      while ((inputLine = br.readLine()) != null) {
+        res.append(inputLine);
+      }
+      br.close();
+      if(responseCode==200) {
+        out.println(res.toString());
+      }
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  %>
+  </body>
+</html>
+
+->
+host 수정
+-> 네이버 도메인추가
+->C:\Windows\System32\drivers\etc
+->host에 추가
+
+ex)
+포트허용
+->80
+->442 
