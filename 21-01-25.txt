@@ -80,7 +80,7 @@ public class LoginValidator implements Validator {
 			errors.reject("loginID");
 		}else {
 			
-			System.out.println("loginID " +loginID); //값이 잘 전달되었는지 콘솔에 
+			System.out.println("loginID " +loginID); //값이 잘 전달되었는지 콘솔에 출력
 		}
 		
 		
@@ -90,7 +90,7 @@ public class LoginValidator implements Validator {
 			System.out.println("PW is null or empty");
 			errors.reject("loginPW");
 		}else if(loginPW.length()<8 || CheckNumber(loginPW) ) {
-			System.out.println("pw가 4글자미만 또는 숫자로만 구성");
+			System.out.println("pw가 8글자미만 또는 숫자로만 구성");
 			errors.reject("loginPW");
 		}else {
 			System.out.println("loginPW " +loginPW);
