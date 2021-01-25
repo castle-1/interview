@@ -1,0 +1,250 @@
+1.아래 annotation 의 용도는?
+@ModelAttribute
+프로그래머가 임의로 객체의 이름을 변경할 수 있다.
+
+2. id 와 pw 를 두개를 만든후 아래와 같이 유효성 검사를 하시오.
+
+-클라이언트쪽 체크: id 가 널이거나 없으면 서버로 보내지 않으면서 - 해당 페이지에 다시 입력하세로 라는 문구 출력
+-서버쪽 체크: id에 10자 초과이거나 숫자로만 되어 있어 있으면 다시 입력하는 페이지로 이동하여 다시 입력하세요 라는 문구 출력
+
+-클라이언트쪽 체크: pw 가 널이거나 없으면 서버로 보내지 않으면서 - 해당 페이지에 패스워드 다시 입력하세로 라는 문구 출력
+-서버쪽 체크: pw에 8자 미만이거나, 숫자로만 되어 있어 있거나, 문자로만 되어 잇으면, 다시 입력하는 페이지로 이동하여 패스워드 다시 입력하세요 라는 문구 출력
+
+-성공시 로그인이 되었습니다. 라는 페이지로 이동
+
+ * controller *
+package edu.bit.ex;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+@Controller
+public class login2Controller {
+	
+	@RequestMapping("/errorMessage")
+	public String errorMessage() {
+		return "errorMessage";
+	}
+
+	@RequestMapping("/loginForm")
+	public String getStudent() {
+		return "loginForm";
+	}
+	
+	@RequestMapping("/login")
+	public String loginSuccess(@ModelAttribute("login") Login login, BindingResult result) {
+		
+		String page = "loginSuccess";
+		
+		LoginValidator Lvalidator = new LoginValidator();
+		Lvalidator.validate(login, result);
+
+		if (result.hasErrors()) {
+			page = "errorMessage";
+		}
+		System.out.println(page);
+		return page;
+	}
+}
+
+ * LoginValidator *
+package edu.bit.ex;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
+
+
+
+public class LoginValidator implements Validator {
+
+	@Override
+	public boolean supports(Class<?> clazz) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public void validate(Object obj, Errors errors) {
+		System.out.println("Lvalidate() run");
+		Login login = (Login)obj;
+		
+		String loginID = login.getuId();
+		if(loginID == null || loginID.trim().isEmpty()) {
+			System.out.println("ID is null or empty");
+			errors.reject("loginID");
+		}else if(loginID.length()>10 || CheckNumber(loginID) ) {
+			System.out.println("ID가 10글자초과 또는 숫자로만 구성");
+			errors.reject("loginID");
+		}else {
+			
+			System.out.println("loginID " +loginID);
+		}
+		
+		
+		
+		String loginPW = login.getuPw();
+		if(loginPW == null || loginPW.trim().isEmpty()) {
+			System.out.println("PW is null or empty");
+			errors.reject("loginPW");
+		}else if(loginPW.length()<8 || CheckNumber(loginPW) ) {
+			System.out.println("pw가 4글자미만 또는 숫자로만 구성");
+			errors.reject("loginPW");
+		}else {
+			System.out.println("loginPW " +loginPW);
+		}
+	}
+	
+	
+	public boolean CheckNumber(String str){// 문자열에서 숫자 구분
+		char check;
+		
+		if(str.equals("")){
+		
+			//문자열이 공백인지 확인
+			return false;
+		}
+		
+		for(int i = 0; i<str.length(); i++){
+			check = str.charAt(i);
+			if( check < 48 || check > 58) { //숫자0은 아스키코드 49, 숫자9는 아스키코드 57 즉 숫자아스키코드는 49~57
+					
+				return false; //char은 전부문자
+			}
+			
+		}		
+		return true;
+	}
+
+
+}
+
+ *  Login *
+package edu.bit.ex;
+
+public class Login {
+	
+	private String uId;
+	private String uPw;
+	
+	public Login(String uId, String uPw) {
+		super();
+		this.uId = uId;
+		this.uPw = uPw;
+	}
+
+	public Login() {
+		super();
+	}
+
+	public String getuId() {
+		return uId;
+	}
+
+	public void setuId(String uId) {
+		this.uId = uId;
+	}
+
+	public String getuPw() {
+		return uPw;
+	}
+
+	public void setuPw(String uPw) {
+		this.uPw = uPw;
+	}
+	
+	
+	
+	
+
+}
+ * loginForm *
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+	<script type="text/javascript">
+	window.onload = function() {
+		var lf = document.getElementById("loginForm");
+		lf.onsubmit = function() {
+			if(document.getElementById("uId").value == ""){
+				alert("ID를 다시 입력하세요.");
+				return false;
+			}else if(document.getElementById("uPw").value ==""){
+				alert("PW를 다시 입력하세요.");
+				return false;
+			}
+		};
+	}
+	
+	</script>
+
+</head>
+<body>
+<%
+	String conPath = request.getContextPath();
+%>
+
+	<form id="loginForm" action="<%=conPath %>/login" method="post" >
+		ID(영문 + 숫자) : <input id="uId" type="text" name = "uId"> <br>
+		PW(영문 + 숫자): <input id="uPw" type="password" name = "uPw"> <br>
+		<input type="submit" value="submit">
+		<input type="reset" value="reset">
+
+	</form>
+
+
+</body>
+</html>
+
+ * loginSuccess *
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<script type="text/javascript">
+		alert("login 성공!!");
+	</script>
+</head>
+<body>
+loginSuccess <br>
+
+ID : ${login.uId } <br>
+PW : ${ login.uPw}
+</body>
+</html>
+
+ * errorMessage * 
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+	<script type="text/javascript">
+		alert("ID 또는 PW를 잘못 입력하셨습니다. 다시 입력해주세요.")
+		
+		window.location.assign("http://localhost:8282/ex/loginForm");
+	</script>
+</head>
+<body>
+
+</body>
+</html>
+  
+
+3.마이바티스를 활용하여, emp 12개를 뿌리시오.
+
+노력중.....
