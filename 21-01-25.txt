@@ -1,16 +1,16 @@
-1.¾Æ·¡ annotation ÀÇ ¿ëµµ´Â?
+1.ì•„ë˜ annotation ì˜ ìš©ë„ëŠ”?
 @ModelAttribute
-ÇÁ·Î±×·¡¸Ó°¡ ÀÓÀÇ·Î °´Ã¼ÀÇ ÀÌ¸§À» º¯°æÇÒ ¼ö ÀÖ´Ù.
+í”„ë¡œê·¸ë˜ë¨¸ê°€ ì„ì˜ë¡œ ê°ì²´ì˜ ì´ë¦„ì„ ë³€ê²½í•  ìˆ˜ ìˆë‹¤.
 
-2. id ¿Í pw ¸¦ µÎ°³¸¦ ¸¸µçÈÄ ¾Æ·¡¿Í °°ÀÌ À¯È¿¼º °Ë»ç¸¦ ÇÏ½Ã¿À.
+2. id ì™€ pw ë¥¼ ë‘ê°œë¥¼ ë§Œë“ í›„ ì•„ë˜ì™€ ê°™ì´ ìœ íš¨ì„± ê²€ì‚¬ë¥¼ í•˜ì‹œì˜¤.
 
--Å¬¶óÀÌ¾ğÆ®ÂÊ Ã¼Å©: id °¡ ³ÎÀÌ°Å³ª ¾øÀ¸¸é ¼­¹ö·Î º¸³»Áö ¾ÊÀ¸¸é¼­ - ÇØ´ç ÆäÀÌÁö¿¡ ´Ù½Ã ÀÔ·ÂÇÏ¼¼·Î ¶ó´Â ¹®±¸ Ãâ·Â
--¼­¹öÂÊ Ã¼Å©: id¿¡ 10ÀÚ ÃÊ°úÀÌ°Å³ª ¼ıÀÚ·Î¸¸ µÇ¾î ÀÖ¾î ÀÖÀ¸¸é ´Ù½Ã ÀÔ·ÂÇÏ´Â ÆäÀÌÁö·Î ÀÌµ¿ÇÏ¿© ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä ¶ó´Â ¹®±¸ Ãâ·Â
+-í´ë¼ì´ì–¸íŠ¸ìª½ ì²´í¬: id ê°€ ë„ì´ê±°ë‚˜ ì—†ìœ¼ë©´ ì„œë²„ë¡œ ë³´ë‚´ì§€ ì•Šìœ¼ë©´ì„œ - í•´ë‹¹ í˜ì´ì§€ì— ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ë¡œ ë¼ëŠ” ë¬¸êµ¬ ì¶œë ¥
+-ì„œë²„ìª½ ì²´í¬: idì— 10ì ì´ˆê³¼ì´ê±°ë‚˜ ìˆ«ìë¡œë§Œ ë˜ì–´ ìˆì–´ ìˆìœ¼ë©´ ë‹¤ì‹œ ì…ë ¥í•˜ëŠ” í˜ì´ì§€ë¡œ ì´ë™í•˜ì—¬ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš” ë¼ëŠ” ë¬¸êµ¬ ì¶œë ¥
 
--Å¬¶óÀÌ¾ğÆ®ÂÊ Ã¼Å©: pw °¡ ³ÎÀÌ°Å³ª ¾øÀ¸¸é ¼­¹ö·Î º¸³»Áö ¾ÊÀ¸¸é¼­ - ÇØ´ç ÆäÀÌÁö¿¡ ÆĞ½º¿öµå ´Ù½Ã ÀÔ·ÂÇÏ¼¼·Î ¶ó´Â ¹®±¸ Ãâ·Â
--¼­¹öÂÊ Ã¼Å©: pw¿¡ 8ÀÚ ¹Ì¸¸ÀÌ°Å³ª, ¼ıÀÚ·Î¸¸ µÇ¾î ÀÖ¾î ÀÖ°Å³ª, ¹®ÀÚ·Î¸¸ µÇ¾î ÀÕÀ¸¸é, ´Ù½Ã ÀÔ·ÂÇÏ´Â ÆäÀÌÁö·Î ÀÌµ¿ÇÏ¿© ÆĞ½º¿öµå ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä ¶ó´Â ¹®±¸ Ãâ·Â
+-í´ë¼ì´ì–¸íŠ¸ìª½ ì²´í¬: pw ê°€ ë„ì´ê±°ë‚˜ ì—†ìœ¼ë©´ ì„œë²„ë¡œ ë³´ë‚´ì§€ ì•Šìœ¼ë©´ì„œ - í•´ë‹¹ í˜ì´ì§€ì— íŒ¨ìŠ¤ì›Œë“œ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ë¡œ ë¼ëŠ” ë¬¸êµ¬ ì¶œë ¥
+-ì„œë²„ìª½ ì²´í¬: pwì— 8ì ë¯¸ë§Œì´ê±°ë‚˜, ìˆ«ìë¡œë§Œ ë˜ì–´ ìˆì–´ ìˆê±°ë‚˜, ë¬¸ìë¡œë§Œ ë˜ì–´ ì‡ìœ¼ë©´, ë‹¤ì‹œ ì…ë ¥í•˜ëŠ” í˜ì´ì§€ë¡œ ì´ë™í•˜ì—¬ íŒ¨ìŠ¤ì›Œë“œ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš” ë¼ëŠ” ë¬¸êµ¬ ì¶œë ¥
 
--¼º°ø½Ã ·Î±×ÀÎÀÌ µÇ¾ú½À´Ï´Ù. ¶ó´Â ÆäÀÌÁö·Î ÀÌµ¿
+-ì„±ê³µì‹œ ë¡œê·¸ì¸ì´ ë˜ì—ˆìŠµë‹ˆë‹¤. ë¼ëŠ” í˜ì´ì§€ë¡œ ì´ë™
 
  * controller *
 package edu.bit.ex;
@@ -74,9 +74,9 @@ public class LoginValidator implements Validator {
 		String loginID = login.getuId();
 		if(loginID == null || loginID.trim().isEmpty()) {
 			System.out.println("ID is null or empty");
-			errors.reject("loginID");
+			errors.reject("loginID"); //rejectValueë¡œ í•˜ë©´ ì»¨íŠ¸ë¡¤ëŸ¬ë¡œ ëŒì•„ê°€ì§€ ì•ŠëŠ”ë‹¤. ì´ìœ ëŠ”..
 		}else if(loginID.length()>10 || CheckNumber(loginID) ) {
-			System.out.println("ID°¡ 10±ÛÀÚÃÊ°ú ¶Ç´Â ¼ıÀÚ·Î¸¸ ±¸¼º");
+			System.out.println("IDê°€ 10ê¸€ìì´ˆê³¼ ë˜ëŠ” ìˆ«ìë¡œë§Œ êµ¬ì„±");
 			errors.reject("loginID");
 		}else {
 			
@@ -90,7 +90,7 @@ public class LoginValidator implements Validator {
 			System.out.println("PW is null or empty");
 			errors.reject("loginPW");
 		}else if(loginPW.length()<8 || CheckNumber(loginPW) ) {
-			System.out.println("pw°¡ 4±ÛÀÚ¹Ì¸¸ ¶Ç´Â ¼ıÀÚ·Î¸¸ ±¸¼º");
+			System.out.println("pwê°€ 4ê¸€ìë¯¸ë§Œ ë˜ëŠ” ìˆ«ìë¡œë§Œ êµ¬ì„±");
 			errors.reject("loginPW");
 		}else {
 			System.out.println("loginPW " +loginPW);
@@ -98,20 +98,20 @@ public class LoginValidator implements Validator {
 	}
 	
 	
-	public boolean CheckNumber(String str){// ¹®ÀÚ¿­¿¡¼­ ¼ıÀÚ ±¸ºĞ
+	public boolean CheckNumber(String str){// ë¬¸ìì—´ì—ì„œ ìˆ«ì êµ¬ë¶„
 		char check;
 		
 		if(str.equals("")){
 		
-			//¹®ÀÚ¿­ÀÌ °ø¹éÀÎÁö È®ÀÎ
+			//ë¬¸ìì—´ì´ ê³µë°±ì¸ì§€ í™•ì¸
 			return false;
 		}
 		
 		for(int i = 0; i<str.length(); i++){
 			check = str.charAt(i);
-			if( check < 48 || check > 58) { //¼ıÀÚ0Àº ¾Æ½ºÅ°ÄÚµå 49, ¼ıÀÚ9´Â ¾Æ½ºÅ°ÄÚµå 57 Áï ¼ıÀÚ¾Æ½ºÅ°ÄÚµå´Â 49~57
+			if( check < 48 || check > 58) { //ìˆ«ì0ì€ ì•„ìŠ¤í‚¤ì½”ë“œ 49, ìˆ«ì9ëŠ” ì•„ìŠ¤í‚¤ì½”ë“œ 57 ì¦‰ ìˆ«ìì•„ìŠ¤í‚¤ì½”ë“œëŠ” 49~57
 					
-				return false; //charÀº ÀüºÎ¹®ÀÚ
+				return false; //charì€ ì „ë¶€ë¬¸ì
 			}
 			
 		}		
@@ -173,10 +173,10 @@ public class Login {
 		var lf = document.getElementById("loginForm");
 		lf.onsubmit = function() {
 			if(document.getElementById("uId").value == ""){
-				alert("ID¸¦ ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
+				alert("IDë¥¼ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
 				return false;
 			}else if(document.getElementById("uPw").value ==""){
-				alert("PW¸¦ ´Ù½Ã ÀÔ·ÂÇÏ¼¼¿ä.");
+				alert("PWë¥¼ ë‹¤ì‹œ ì…ë ¥í•˜ì„¸ìš”.");
 				return false;
 			}
 		};
@@ -191,8 +191,8 @@ public class Login {
 %>
 
 	<form id="loginForm" action="<%=conPath %>/login" method="post" >
-		ID(¿µ¹® + ¼ıÀÚ) : <input id="uId" type="text" name = "uId"> <br>
-		PW(¿µ¹® + ¼ıÀÚ): <input id="uPw" type="password" name = "uPw"> <br>
+		ID(ì˜ë¬¸ + ìˆ«ì) : <input id="uId" type="text" name = "uId"> <br>
+		PW(ì˜ë¬¸ + ìˆ«ì): <input id="uPw" type="password" name = "uPw"> <br>
 		<input type="submit" value="submit">
 		<input type="reset" value="reset">
 
@@ -213,7 +213,7 @@ public class Login {
 <title>Insert title here</title>
 
 	<script type="text/javascript">
-		alert("login ¼º°ø!!");
+		alert("login ì„±ê³µ!!");
 	</script>
 </head>
 <body>
@@ -234,9 +234,9 @@ PW : ${ login.uPw}
 <title>Insert title here</title>
 
 	<script type="text/javascript">
-		alert("ID ¶Ç´Â PW¸¦ Àß¸ø ÀÔ·ÂÇÏ¼Ì½À´Ï´Ù. ´Ù½Ã ÀÔ·ÂÇØÁÖ¼¼¿ä.")
+		alert("ID ë˜ëŠ” PWë¥¼ ì˜ëª» ì…ë ¥í•˜ì…¨ìŠµë‹ˆë‹¤. ë‹¤ì‹œ ì…ë ¥í•´ì£¼ì„¸ìš”.")
 		
-		window.location.assign("http://localhost:8282/ex/loginForm");
+		window.location.assign("http://localhost:8282/ex/loginForm"); //ìì„¸íˆëª¨ë¥´ì§€ë§Œ redirect ê°™ë‹¤
 	</script>
 </head>
 <body>
@@ -245,6 +245,6 @@ PW : ${ login.uPw}
 </html>
   
 
-3.¸¶ÀÌ¹ÙÆ¼½º¸¦ È°¿ëÇÏ¿©, emp 12°³¸¦ »Ñ¸®½Ã¿À.
+3.ë§ˆì´ë°”í‹°ìŠ¤ë¥¼ í™œìš©í•˜ì—¬, emp 12ê°œë¥¼ ë¿Œë¦¬ì‹œì˜¤.
 
-³ë·ÂÁß.....
+ë…¸ë ¥ì¤‘.....
