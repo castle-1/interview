@@ -43,7 +43,7 @@ public class login2Controller {
 		Lvalidator.validate(login, result);
 
 		if (result.hasErrors()) {
-			page = "errorMessage";
+			page = "errorMessage"; // alert로 팝업창을 통해 error 메세지를 출력후 loginForm으로 이동
 		}
 		System.out.println(page);
 		return page;
@@ -74,13 +74,13 @@ public class LoginValidator implements Validator {
 		String loginID = login.getuId();
 		if(loginID == null || loginID.trim().isEmpty()) {
 			System.out.println("ID is null or empty");
-			errors.reject("loginID"); //rejectValue로 하면 컨트롤러로 돌아가지 않는다. 이유는..
-		}else if(loginID.length()>10 || CheckNumber(loginID) ) {
+			errors.reject("loginID"); //rejectValue로 하면 컨트롤러로 돌아가지 않고 콘솔에서 익셉션을 뿌리고 프로그램이 끝난다. 이유는..
+		}else if(loginID.length()>10 || CheckNumber(loginID) ) { //입력한 문자열을 아스키코드를 통해 전부 숫자인지 검사 하는 메소드
 			System.out.println("ID가 10글자초과 또는 숫자로만 구성");
 			errors.reject("loginID");
 		}else {
 			
-			System.out.println("loginID " +loginID);
+			System.out.println("loginID " +loginID); //값이 잘 전달되었는지 콘솔에 
 		}
 		
 		
@@ -190,7 +190,7 @@ public class Login {
 	String conPath = request.getContextPath();
 %>
 
-	<form id="loginForm" action="<%=conPath %>/login" method="post" >
+	<form id="loginForm" action="<%=conPath %>/login" method="post" > // 아이디와 비밀번호이기 때문에 포스트로
 		ID(영문 + 숫자) : <input id="uId" type="text" name = "uId"> <br>
 		PW(영문 + 숫자): <input id="uPw" type="password" name = "uPw"> <br>
 		<input type="submit" value="submit">
@@ -219,7 +219,7 @@ public class Login {
 <body>
 loginSuccess <br>
 
-ID : ${login.uId } <br>
+ID : ${login.uId } <br> //입력한 값들이 제대로 출력되는지 검사하기위해 id와 pw를 뿌려본다.
 PW : ${ login.uPw}
 </body>
 </html>
@@ -233,10 +233,10 @@ PW : ${ login.uPw}
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-	<script type="text/javascript">
+	<script type="text/javascript"> //오류가 발생하면 컨트롤러에서 이 페이지로 이동된다.
 		alert("ID 또는 PW를 잘못 입력하셨습니다. 다시 입력해주세요.")
 		
-		window.location.assign("http://localhost:8282/ex/loginForm"); //자세히모르지만 redirect 같다
+		window.location.assign("http://localhost:8282/ex/loginForm"); //자세히모르지만 redirect 와 같은 기능을 하는것 같다.
 	</script>
 </head>
 <body>
