@@ -1,35 +1,40 @@
-1.¾Æ·¡ÀÇ xml ¿¡ ´ëÇÏ¿© ¼³¸íÇÏ½Ã¿À.
+1.ì•„ëž˜ì˜ xml ì— ëŒ€í•˜ì—¬ ì„¤ëª…í•˜ì‹œì˜¤.
 -pom.xml
-³»°¡ »ç¿ëÇÒ ¶óÀÌºê·¯¸®¸¦ ¸í½ÃÇÏ´Â°÷, ÇÁ·ÎÁ§Æ®ÀÇ ¸ðµç Á¤º¸¸¦ ±â¼úÇÏ´Â °÷ÀÌ´Ù.
+ë‚´ê°€ ì‚¬ìš©í•  ë¼ì´ë¸ŒëŸ¬ë¦¬ë¥¼ ëª…ì‹œí•˜ëŠ”ê³³, í”„ë¡œì íŠ¸ì˜ ëª¨ë“  ì •ë³´ë¥¼ ê¸°ìˆ í•˜ëŠ” ê³³ì´ë‹¤.
 -web.xml
 DispatcherServlet
    - servlet webApplicationContext
-	->servlet.xml : À¥°ü·Ã (ÇÚµé·¯, ÄÁÆ®·Ñ·¯, ºä)
+	->servlet.xml : ì›¹ê´€ë ¨ (í•¸ë“¤ëŸ¬, ì»¨íŠ¸ë¡¤ëŸ¬, ë·°)
    - Root webApplicationContext
-	->root.xml : À¥°ü·Ã ¿Ü¿¡ ³ª¸ÓÁö
+	->root.xml : ì›¹ê´€ë ¨ ì™¸ì— ë‚˜ë¨¸ì§€
 
-dispatcherServlet ÀÌ servlet.xml,root.xml À» ÀÐ¾îµé¿© iocÄÁÅ×ÀÌ³Ê »ý¼º
+dispatcherServlet ì´ servlet.xml,root.xml ì„ ì½ì–´ë“¤ì—¬ iocì»¨í…Œì´ë„ˆ ìƒì„±
 
 ContextLoaderListener
-spring ÄÁÅ×ÀÌ³Ê »ý¼º
+spring ì»¨í…Œì´ë„ˆ ìƒì„±
 bean, dao, datasource, service
 
 encodingFilter
-utf-8·Î ¼³Á¤
+utf-8ë¡œ ì„¤ì •
 
 -*-context.xml
 servlet-context
-	-> ¿äÃ»°ú °ü·ÃµÈ °´Ã¼ Ã³¸®
-	-> url °ü·Ã ¾î³ëÅ×ÀÌ¼Ç,ViewResolver, Interceptor, MultipartResolver µîÀÇ ¼³Á¤
+	-> ìš”ì²­ê³¼ ê´€ë ¨ëœ ê°ì²´ ì²˜ë¦¬
+	-> url ê´€ë ¨ ì–´ë…¸í…Œì´ì…˜,ViewResolver, Interceptor, MultipartResolver ë“±ì˜ ì„¤ì •
 root-context
-	->view¿Í °ü·Ã¾ø´Â °´Ã¼ Á¤ÀÇ
-	->Service, Repository(DAO), DB µîÀÇ ºñÁö´Ï½º ·ÎÁ÷
+	->viewì™€ ê´€ë ¨ì—†ëŠ” ê°ì²´ ì •ì˜
+	->Service, Repository(DAO), DB ë“±ì˜ ë¹„ì§€ë‹ˆìŠ¤ ë¡œì§
 
-2.½ºÇÁ¸µ¿¡¼­ °Ô½ÃÆÇ »ç¿ëÀ» À§ÇÑ ¼³°èµµ¸¦ ±×¸®½Ã¿À.
+2.ìŠ¤í”„ë§ì—ì„œ ê²Œì‹œíŒ ì‚¬ìš©ì„ ìœ„í•œ ì„¤ê³„ë„ë¥¼ ê·¸ë¦¬ì‹œì˜¤.
 
-3.½ºÇÁ¸µ¿¡¼­ ÇÑ±ÛÃ³¸®´Â ¾î¶»°Ô ÇÏ´Â°¡?
 
- web.xml¿¡ ¾Æ·¡¿Í °°ÀÌ ±â¼ú
+
+
+
+
+3.ìŠ¤í”„ë§ì—ì„œ í•œê¸€ì²˜ë¦¬ëŠ” ì–´ë–»ê²Œ í•˜ëŠ”ê°€?
+
+ web.xmlì— ì•„ëž˜ì™€ ê°™ì´ ê¸°ìˆ 
 <filter>
       <filter-name>encoding</filter-name>
       <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
@@ -44,18 +49,18 @@ root-context
       <servlet-name>appServlet</servlet-name>
    </filter-mapping>
 
-4.¸¶ÀÌ¹ÙÆ¼½º¿¡ ´ëÇÏ¿© ¼³¸íÇÏ½Ã¿À.
-ÀÚ¹ÙÀÇ °ü°èÇü db ÇÁ·Î±×·¡¹ÖÀ» ½±°Ô ÇÒ ¼ö ÀÖ°Ô µµ¿ÍÁÖ´Â ÇÁ·¹ÀÓ ¿öÅ©.
-jdbc¸¦ ÅëÇØ db¿¢¼¼½º ÀÛ¾÷ Ä¸½¶È­
-ÇÁ·Î±×·¥¿¡ ÀÖ´Â sqlÄõ¸®µéÀ» ÇÑ ±¸¼ºÆÄÀÏ¿¡ ±¸¼ºÇÏ¿© ÇÁ·Î±×·¥ ÄÚµå¿Í sqlÀ» ºÐ¸® ÇÒ ¼ö ÀÖ´Ù.
+4.ë§ˆì´ë°”í‹°ìŠ¤ì— ëŒ€í•˜ì—¬ ì„¤ëª…í•˜ì‹œì˜¤.
+ìžë°”ì˜ ê´€ê³„í˜• db í”„ë¡œê·¸ëž˜ë°ì„ ì‰½ê²Œ í•  ìˆ˜ ìžˆê²Œ ë„ì™€ì£¼ëŠ” í”„ë ˆìž„ ì›Œí¬.
+jdbcë¥¼ í†µí•´ dbì—‘ì„¸ìŠ¤ ìž‘ì—… ìº¡ìŠí™”
+í”„ë¡œê·¸ëž¨ì— ìžˆëŠ” sqlì¿¼ë¦¬ë“¤ì„ í•œ êµ¬ì„±íŒŒì¼ì— êµ¬ì„±í•˜ì—¬ í”„ë¡œê·¸ëž¨ ì½”ë“œì™€ sqlì„ ë¶„ë¦¬ í•  ìˆ˜ ìžˆë‹¤.
 
 
-5. ½ºÇÁ¸µ¿¡¼­ hello.jsp°¡ À¯Àú¿¡°Ô Àü´ÞµÇ±â ±îÁöÀÇ ¼ø¼­
-	->Å¬¶óÀÌ¾ðÆ®
-	->µð½ºÆÐÃ³ ¼­ºí¸´
-	->ÇÚµé·¯¸ÊÇÎ
-	->ÇÚµé·¯¾î´ðÅÍ
-	->ÄÁÆ®·Ñ·¯(¸ðµ¨&ºä ¸®ÅÏ)
-	->ºä¸®Àýºê
-	->ºä
+5. ìŠ¤í”„ë§ì—ì„œ hello.jspê°€ ìœ ì €ì—ê²Œ ì „ë‹¬ë˜ê¸° ê¹Œì§€ì˜ ìˆœì„œ
+	->í´ë¼ì´ì–¸íŠ¸
+	->ë””ìŠ¤íŒ¨ì²˜ ì„œë¸”ë¦¿
+	->í•¸ë“¤ëŸ¬ë§µí•‘
+	->í•¸ë“¤ëŸ¬ì–´ëŒ‘í„°
+	->ì»¨íŠ¸ë¡¤ëŸ¬(ëª¨ë¸&ë·° ë¦¬í„´)
+	->ë·°ë¦¬ì ˆë¸Œ
+	->ë·°
 
