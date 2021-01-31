@@ -1,4 +1,8 @@
 페이징 & 유효성검사
+참고 사이트 : https://po9357.github.io/spring/2019-05-28-Board_Paging/
+
+
+
 
 - 1. emp 유효성 검사 -
  ->컨트톨러
