@@ -137,20 +137,33 @@ public class EmpMapperTest {
 	<script type="text/javascript">
 	function makeList() {
 		
-		var list = document.getElementById("list-table");	
 		
-		list.innerHTML += "<c:forEach items='${list}' var='dto'>";
-		list.innerHTML += "<tr>";
-		list.innerHTML += "<td>${dto.empno}</td>";
-		list.innerHTML += "<td>${dto.ename}</td>";
-		list.innerHTML += "<td>${dto.job}</td>";
-		list.innerHTML += "<td>${dto.mgr}</td>";
-		list.innerHTML += "<td>${dto.hiredate}</td>";
-		list.innerHTML += "<td>${dto.sal}</td>";
-		list.innerHTML += "<td>${dto.comm}</td>";
-		list.innerHTML += "<td>${dto.deptno}</td>";
-		list.innerHTML += "</tr>";
-		list.innerHTML += "</c:forEach>";
+		var list = "";
+		list += "<tr>";
+		list +="<td>empno</td>";
+		list += "<td>ename</td>";
+		list += "<td>job</td>"
+		list +="<td>mgr</td>";
+		list +="<td>hiredate</td>";
+		list += "<td>sal</td>";
+		list += "<td>comm</td>";
+		list += "<td>deptno</td>";
+		list += "</tr>";
+		list += "<c:forEach items='${list}' var='dto'>";
+		list += "<tr>";
+		list += "<td>${dto.empno}</td>";
+		list += "<td>${dto.ename}</td>";
+		list += "<td>${dto.job}</td>";
+		list += "<td>${dto.mgr}</td>";
+		list += "<td>${dto.hiredate}</td>";
+		list += "<td>${dto.sal}</td>";
+		list += "<td>${dto.comm}</td>";
+		list += "<td>${dto.deptno}</td>";
+		list += "</tr>";
+		list += "</c:forEach>";
+		 $("#list-table").html(list);
+		//list = document.getElementById("list-table");
+			
 	        	
 	}
 	</script>
@@ -164,21 +177,8 @@ public class EmpMapperTest {
 </head>
 <body>
 	<table id="list-table" width="500" cellpadding="0" cellspacing="0" border="1">
-		<tr>
-			<td>empno</td>
-			<td>ename</td>
-			<td>job</td>
-			<td>mgr</td>
-			<td>hiredate</td>
-			<td>sal</td>
-			<td>comm</td>
-			<td>deptno</td>
-		</tr>
-
+		
 	</table>
 	
 </body>
 </html>
-
- --> 더미데이터가 많아 크롬브라우저가 계속 로딩...... 결과를 확인 못함
-       코드가 잘못인지......
