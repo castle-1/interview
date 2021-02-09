@@ -1,0 +1,138 @@
+1.restful에 대하여 설명하시오. 
+	- uri 설계
+	- rest api 를 제공하는 웹서비스
+	- rest 원리를 따르는 시스템
+	- 사용하기 쉬운 rest api를 만드는것이 목적
+	- 일관적인 컨벤션을 통한 API의 이해도 및 호환성을 높이는 것이 주 동기이니, 
+	  성능이 중요한 상황에서는 굳이 RESTful한 API를 구현할 필요는 없다.
+
+ajax로 리스트, delete
+ - controller - 
+package edu.bit.board.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
+
+import edu.bit.board.service.BoardService;
+import edu.bit.board.vo.BoardVO;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j;
+
+@Log4j
+@AllArgsConstructor
+@RestController
+@RequestMapping("/restful/*") // restful로 치고들어오는 모든 주소
+public class RestBoardController {
+	private BoardService boardService;
+
+	// 1.list - 처음 진입 화면이므로 화면이 깜박여도 상관없으므로 @controller 방식으로 접근 - view를 리턴
+	@GetMapping("/board")
+	public ModelAndView list(ModelAndView mav) {
+		mav.setViewName("rest_list");
+		mav.addObject("list", boardService.getList());
+		return mav;
+	}
+
+	// 2. contentView
+	@GetMapping("/board/{bId}") // @pathvariable 사용도 가능
+	public String rest_content_view(BoardVO boardvo, Model model) {
+		log.info("rest_content_view");
+		model.addAttribute("content_view", boardService.getBoard(boardvo.getbId()));
+		return "content_view";
+	}
+
+	
+	
+	// 3.delete
+	@DeleteMapping("/delete/{bId}")
+	public ResponseEntity<String> rest_delete(BoardVO boardvo, Model model) {
+		ResponseEntity<String> entity = null;
+		log.info("rest_delete");
+
+		try {
+			boardService.deleteBoard(boardvo.getbId());
+			//삭제 성공 성공 상태메시지 저장
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK); //ajax의 result로 넘어감
+		} catch (Exception e) {
+			e.printStackTrace();
+			//삭제 실패 실패 상태메시지 저장
+			entity = new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
+		//삭제 처리 HTTP 상태 메시지 리턴
+		return entity;
+	}
+
+}
+ - list -
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+	
+		 $(document).ready(function (){
+			$('.delete').click(function(event) {
+				event.preventDefault();
+				var obj = $(this).parent().parent();
+				
+				$.ajax({
+					type : "DELETE",
+					url : $(this).attr("href"),
+					success : function(result){//data타입이 없다면 text로 들어온다.
+						console.log(result);
+						if(result == "SUCCESS"){
+							$(obj).remove();
+						}
+					},
+					error : function(e){
+						console.log(e);
+					}										
+				});	//ajax			
+			});	//click					
+		});	//document	
+		
+	</script>
+	
+</head>
+<body>
+
+	<table  width="500" cellpadding="0" cellspacing="0" border="1">
+		<tr>
+			<td>번호</td>
+			<td>이름</td>
+			<td>제목</td>
+			<td>날짜</td>
+			<td>히트</td>
+			<td>삭제</td>
+		</tr>
+		<c:forEach items="${list}" var="dto">
+			<tr>
+				<td>${dto.bId}</td>
+				<td>${dto.nName}</td>
+				<td><c:forEach begin="1" end="${dto.bIndent}">-</c:forEach> 
+				<a href="${pageContext.request.contextPath}/restful/board/${dto.bId}">${dto.bTitle}</a></td>
+				<td>${dto.bDate}</td>
+				<td>${dto.bHit}</td>
+				<td ><a class="delete" href="${pageContext.request.contextPath}/restful/delete/${dto.bId}">삭제</a></td>
+			</tr>
+		</c:forEach>
+		<tr>
+			<td colspan="5"><a href="write_view">글작성</a></td>
+		</tr>
+	</table>		
+</body>
+</html>
